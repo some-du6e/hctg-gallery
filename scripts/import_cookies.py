@@ -1,7 +1,15 @@
 import json
-input("Make sure your reading CONTRIBUTING.md before doing this.\nPress enter to continue or ctrl+c to exit")
-
+import os
 cookiesJSON = []
+
+# check if they are dumb enough to run it inside of the scripts directory
+cwd = os.getcwd()
+# print(cwd)
+if cwd.endswith("scripts"):
+    print("hey buddy, ur supposed to run this in the project root")
+    exit(0)
+
+input("Make sure your reading SELFHOSTING.md before doing this.\nPress enter to continue or ctrl+c to exit")
 
 try:
     with open("cookies.json", 'r') as cookiesFile:
