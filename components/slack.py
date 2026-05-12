@@ -21,7 +21,7 @@ def message_hello(message, say, client):
 @app.command("/updategallery")
 def handle_slash_command(ack, say, command, logger):
     ack()
-    say("@")
+    say(f"<@{command["user_id"]}> made me update the gallery mirror")
 
 
 # Start your app
