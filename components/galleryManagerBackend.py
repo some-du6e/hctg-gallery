@@ -2,9 +2,15 @@ from playwright.sync_api import sync_playwright, Page
 from dotenv import load_dotenv
 import os
 from time import sleep
+import json
+
+# Keep Playwright instance alive at module level
+_playwright = None
+_browser = None
+_page = None
 
 
-def login(page: Page):
+def hcaLogin(page: Page):
     session_token_cookie = os.environ.get("session_token")
     signed_user_token = os.environ.get("signed_user")
     if signed_user_token != None:
@@ -30,17 +36,23 @@ def login(page: Page):
     return page
 
 
+def hctgLogin(page: Page):
+    
+
+
 
 def initBrowser():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(
-            headless=False
-        )
-        page = browser.new_page()
-
-        page = login(page)
-        return page
+    global _playwright, _browser, _page
+    _playwright = sync_playwright().start()
+    _browser = _playwright.chromium.launch(
+        headless=False
+    )
+    _page = _browser.new_page()
+    _page = login(_page)
+    return _page
     
 
 def getGalleryPageProps(page: Page, pageNum: int):
-    
+    pass
+
+

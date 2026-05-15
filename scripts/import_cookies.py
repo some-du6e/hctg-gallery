@@ -46,7 +46,7 @@ session_token={session_token}
 signed_user={signed_user}
 """
 print("Got datatowrite successfully i think")
-
+print(datatowrite)
 yassforoverwriting = input("Do you want to save? This will overwrite the current .env (y/N)")
 if yassforoverwriting.lower() == "y":
     with open(".env", 'w') as envFile:
