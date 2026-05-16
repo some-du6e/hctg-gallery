@@ -24,8 +24,12 @@ def message_hello(message, say, client):
 @app.command("/updategallery")
 def handle_slash_command(ack, say, command, logger):
     ack()
-    say(f"<@{command["user_id"]}> made me update the gallery mirror")
-    fe.updateGalleryJSON()
+    say(f"<@{command['user_id']}> made me update the gallery mirror")
+    
+    # Run in a separate thread to avoid Playwright asyncio loop error
+    import threading
+    t = threading.Thread(target=fe.updateGalleryJSON, args=(say,))
+    t.start()
 
 
 # Start your app
