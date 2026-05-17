@@ -1,0 +1,6 @@
+fastapi
+playwright
+json
+uvicorn
+
+

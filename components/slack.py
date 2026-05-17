@@ -37,4 +37,5 @@ if __name__ == "__main__":
     SocketModeHandler(app, os.environ["SLACK_APP_TOKEN"]).start()
 
 def start():
-    SocketModeHandler(app, os.environ["SLACK_APP_TOKEN"]).start()
+    handler = SocketModeHandler(app, os.environ["SLACK_APP_TOKEN"])
+    handler.start()
