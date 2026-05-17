@@ -13,16 +13,19 @@ def fakeSay(message: str):
     print(message)
 
 
-def getDatapage(page: Page) -> tuple[Page, dict]:
+def getDatapage(page: Page, say=fakeSay) -> tuple[Page, dict]:
     page.wait_for_load_state("domcontentloaded", timeout=10000)
 
     appDiv = page.locator("#app")
     rawData = appDiv.get_attribute("data-page")
+    say("getDatapage: got appDiv and rawData")
     if rawData is None:
         raise ValueError("data-page attribute is missing or empty")
     data = json.loads(rawData)
     props = data["props"]
+    say("getDatapage: got loaded rawData into json and extracted props")
     print(data["props"]["user"]["first_name"])
+    say("getDatapage: returning page and props")
     return page, props
 
 
@@ -103,8 +106,8 @@ def getPageAmount(page: Page, say=fakeSay) -> tuple[Page, int]:
     page.wait_for_load_state("domcontentloaded", timeout=10000)
 
     say("getPageAmount: getting data-page attribute...")
-    page, props = getDatapage(page)
-
+    page, props = getDatapage(page, say)
+    
     result = props["pagination"]["total_pages"]
     say(f"getPageAmount: got page amount: {result}")
     return page, result
@@ -115,7 +118,14 @@ def getPageAmount(page: Page, say=fakeSay) -> tuple[Page, int]:
 
 
 
-def getGalleryPageProps(page: Page, pageNum: int):
-    pass
+def getDumpFromGalleryPage(page: Page, pageNum: int, say=fakeSay):
+    PAGE_URL = f"https://game.hackclub.com/explore?page={pageNum}"
+    page.goto(PAGE_URL)
+
+    page, props = getDatapage(page, say)
+
+    currentPageProjects = props["projects"]
+
+    return page, currentPageProjects
 
 
