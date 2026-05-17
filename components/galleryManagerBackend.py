@@ -96,8 +96,24 @@ def initBrowser(say=fakeSay) -> Page:
     
 
 
-def getPageAmount(page: Page):
-    pass
+def getPageAmount(page: Page, say=fakeSay) -> tuple[Page, int]:
+    if page.url != "https://game.hackclub.com/explore":
+        say("getPageAmount: not on gallery page, going there now...")
+        page.goto("https://game.hackclub.com/explore")
+    page.wait_for_load_state("domcontentloaded", timeout=10000)
+
+    say("getPageAmount: getting data-page attribute...")
+    page, props = getDatapage(page)
+
+    result = props["pagination"]["total_pages"]
+    say(f"getPageAmount: got page amount: {result}")
+    return page, result
+
+
+
+
+
+
 
 def getGalleryPageProps(page: Page, pageNum: int):
     pass

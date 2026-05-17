@@ -1,17 +1,17 @@
 import components.galleryManagerBackend as be
 
+def fakeSay(message: str):
+    print(message)
 
-def updateGalleryJSON(say=None):
-    if say:
-        say("Initializing browser...")
+
+def updateGalleryJSON(say=fakeSay):
     
     page = be.initBrowser(say)
-    page.pause()
-
-    page, data = be.getDatapage(page)
-    page.pause()
     
-    if say:
-        say("Done updating the gallery! 🎉")
+    page, pages = be.getPageAmount(page, say)
+
+    print(pages)
+    
+    say("Done updating the gallery! 🎉")
 
 
