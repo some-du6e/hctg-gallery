@@ -8,7 +8,7 @@ def getPaginatedProjects():
     with open("paginated_projects.json", "r") as file:
         return json.load(file)
     
-def getGalleryPage(pageNum: int):
+def getGalleryPage(pageNum: str):
     paginatedProjects = getPaginatedProjects()
     return paginatedProjects[pageNum]
 

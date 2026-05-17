@@ -13,6 +13,18 @@ def get_project(project_id):
         return jm.getProjectById(project_id)
     except Exception as e:
         return {"error": str(e)}
+    
+@app.get("/api/projects/")
+def get_projects():
+    try:
+        return jm.getProjects()
+    except Exception as e:
+        return {"error": str(e)}
 
-
+@app.get("/api/projects/page/{page_num}")
+def get_project_page(page_num):
+    try:
+        return jm.getGalleryPage(str(page_num))
+    except Exception as e:
+        return {"error": str(e)}
 
