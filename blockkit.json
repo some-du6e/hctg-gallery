@@ -1,0 +1,55 @@
+{
+	"blocks": [
+		{
+			"type": "markdown",
+			"text": "# PROJECT NAME \n ### by AUTHOR \n ------\n DESCRIPTION \n \n\n :clock5: 54h4m \n :ticket: 21"
+		},
+		{
+			"type": "image",
+			"image_url": "https://placehold.co/840x420.png",
+			"alt_text": "delicious tacos"
+		},
+		{
+			"type": "markdown",
+			"text": "---- \n ## 🤖 AI declaration\n "
+		},
+		{
+			"type": "markdown",
+			"text": "\n hi so i vibe coded everything bc i hate hack club and love doing hackatime f raud "
+		},
+		{
+			"type": "markdown",
+			"text": "----"
+		},
+		{
+			"type": "actions",
+			"block_id": "buttons",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "🔗 Demo"
+					},
+					"url": "https://api.slack.com/block-kit"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": ":github: Repository"
+					},
+					"url": "https://api.slack.com/block-kit"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": ":book: Readme"
+					},
+					"url": "https://api.slack.com/block-kit"
+				}
+			]
+		}
+	]
+}
