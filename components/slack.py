@@ -10,6 +10,13 @@ import os
 
 load_dotenv()
 
+def formatTime(seconds):
+    hours = seconds // 3600
+    minutes = (seconds % 3600) // 60
+    
+    formatted = f"{hours}h {minutes}m"
+    return formatted
+
 
 app = App(token=os.environ.get("SLACK_BOT_TOKEN"))
 
@@ -55,24 +62,32 @@ def getproject(ack, say, command, logger):
         say("No project found with that ID " + f"<@{command['user_id']}>")
         return
     
+
+    ai_declaration_1, ai_declaration_2 = {}, {}
+    if project["ai_declaration"] is not None and project["ai_declaration"] != "":
+        ai_declaration_1 = {
+			"type": "markdown",
+			"text": "---- \n ## 🤖 AI declaration\n "
+	    }
+        ai_declaration_2 = {
+	    		"type": "markdown",
+	    		"text": f"\n {project['ai_declaration']} "
+	    }
+
+    BASE_URL = "https://game.hackclub.com"
+    image_url = f"{BASE_URL}/{project['screenshot']}"
     blocks = [
 		{
 			"type": "markdown",
-			"text": "# PROJECT NAME \n ### by AUTHOR \n ------\n DESCRIPTION \n \n\n :clock5: 54h4m \n :ticket: 21"
+			"text": f"# {project['title']} \n ### by {project['username']} \n ------\n {project['desc']} \n \n\n :clock5: {formatTime(project['real_approved_seconds'])}"
 		},
 		{
 			"type": "image",
-			"image_url": "https://placehold.co/840x420.png",
-			"alt_text": "delicious tacos"
+			"image_url": image_url,
+			"alt_text": f"Screenshot of {project['title']} by {project['username']}"
 		},
-		{
-			"type": "markdown",
-			"text": "---- \n ## 🤖 AI declaration\n "
-		},
-		{
-			"type": "markdown",
-			"text": "\n hi so i vibe coded everything bc i hate hack club and love doing hackatime f raud "
-		},
+		ai_declaration_1,
+		ai_declaration_2,
 		{
 			"type": "markdown",
 			"text": "----"
