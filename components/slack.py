@@ -76,6 +76,12 @@ def getproject(ack, say, command, logger):
 
     BASE_URL = "https://game.hackclub.com"
     image_url = f"{BASE_URL}/{project['screenshot']}"
+    
+    readme = "https://large-type.com/#not found :("
+    repourl = project["repo_link"]
+	
+    if repourl.
+	
     blocks = [
 		{
 			"type": "markdown",
