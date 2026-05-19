@@ -1,3 +1,4 @@
+from openai import project
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 import components.galleryManagerFrontend as fe
 import components.jsonManager as jm
@@ -79,9 +80,11 @@ def getproject(ack, say, command, logger):
     
     readme = "https://large-type.com/#not found :("
     repourl = project["repo_link"]
-	
-    if repourl.
-	
+    demourl = project["demo_link"]
+    if "github.com/" in str(repourl):
+        readme = repourl + "blob/main/README.md" # todo: regex? normalising?
+
+	# FUCK VSCODE
     blocks = [
 		{
 			"type": "markdown",
@@ -108,7 +111,7 @@ def getproject(ack, say, command, logger):
 						"type": "plain_text",
 						"text": "🔗 Demo"
 					},
-					"url": "https://api.slack.com/block-kit"
+					"url": demourl
 				},
 				{
 					"type": "button",
@@ -116,7 +119,7 @@ def getproject(ack, say, command, logger):
 						"type": "plain_text",
 						"text": ":github: Repository"
 					},
-					"url": "https://api.slack.com/block-kit"
+					"url": repourl
 				},
 				{
 					"type": "button",
@@ -124,7 +127,7 @@ def getproject(ack, say, command, logger):
 						"type": "plain_text",
 						"text": ":book: Readme"
 					},
-					"url": "https://api.slack.com/block-kit"
+					"url": demourl
 				}
 			]
 		}
