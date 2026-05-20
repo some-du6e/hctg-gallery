@@ -37,15 +37,17 @@ def update_gallery_command(ack, say, command, logger):
     t.start()
 
 
-# @app.command("/hellotestf")
-# def testing(ack, say, command, logger):
-#     ack()
-#     say("hi" + f"<@{command['user_id']}>")
+@app.command("/hellotestf")
+def testing(ack, say, command, logger):
+    ack()
+    say("hi" + f"<@{command['user_id']}>")
+    print("command: ", command)
 
 @app.command("/hctgprojectinfo")
-def getproject(ack, say, command, logger):
+@app.command("/hctgprojectinfoquiet")
+def getproject(ack, say, command, logger, ):
     ack()
-
+    QUIET = command["command"] == "/hctgprojectinfoquiet"
     commandtext = command["text"]
     try:
         projectId = int(commandtext)
@@ -137,6 +139,21 @@ def getproject(ack, say, command, logger):
         text=f"information about project",
         blocks=blocks
     )
+    
+
+
+@app.event("message")
+def lookup_handler(body, logger, say, ):
+    print("got msg")
+    LOOKUP_CHANNEL = os.environ.get("SLACK_LOOKUP_CHANNEL")
+    if body["event"]["channel"] != LOOKUP_CHANNEL: print("not lookup channel"); return
+    
+    msg_ts = body["event"]["ts"]
+    msg_text = body["event"]["text"]
+
+    say("hi", thread_ts=msg_ts)
+
+
 
 # Start your app
 if __name__ == "__main__":
