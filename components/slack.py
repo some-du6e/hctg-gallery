@@ -54,6 +54,12 @@ def message_hello(message, say, client):
 @app.command("/updategallery")
 def update_gallery_command(ack, say, command, logger):
     ack()
+    user_id = command["user_id"]
+
+    if user_id != os.environ.get("SLACK_ADMIN_USER_ID"):
+        say(f"Sorry <@{user_id}>, you don't have permission to use this command.", ephemeral=True)
+        return
+
     say(f"<@{command['user_id']}> made me update the gallery mirror")
     
     
@@ -61,11 +67,11 @@ def update_gallery_command(ack, say, command, logger):
     t.start()
 
 
-@app.command("/hellotestf")
-def testing(ack, say, command, logger):
-    ack()
-    say("hi" + f"<@{command['user_id']}>")
-    print("command: ", command)
+# @app.command("/hellotestf")
+# def testing(ack, say, command, logger):
+#     ack()
+#     say("hi" + f"<@{command['user_id']}>")
+#     print("command: ", command)
 
 
 def projectabstractionthingrllylong(say, projectId, user_id, thread_ts=None, ephemeral=False):
