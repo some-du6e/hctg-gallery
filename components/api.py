@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 import components.jsonManager as jm
+from components.www import router as www_router
+
 app = FastAPI()
+app.include_router(www_router)
 
 @app.get("/api/projects/{project_id}")
 def get_project(project_id):
