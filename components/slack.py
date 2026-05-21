@@ -11,6 +11,30 @@ import os
 
 load_dotenv()
 
+def extract_project_id(input_str):
+    """Extract project ID from URL, raw ID, or text containing a number."""
+    import re
+    from urllib.parse import urlparse
+    
+    input_str = input_str.strip()
+    
+    # If it's just a number, return it
+    if input_str.isdigit():
+        return input_str
+    
+    # If it's a URL, extract the last path segment
+    if "://" in input_str:
+        path = urlparse(input_str).path
+        parts = path.rstrip('/').split('/')
+        if parts[-1].isdigit():
+            return parts[-1]
+    
+    # Extract any digit sequence from the text
+    match = re.search(r'\d+', input_str)
+    gubby = match.group(0) if match else None
+    return int(gubby) if gubby else None
+
+
 def formatTime(seconds):
     hours = seconds // 3600
     minutes = (seconds % 3600) // 60
@@ -43,31 +67,23 @@ def testing(ack, say, command, logger):
     say("hi" + f"<@{command['user_id']}>")
     print("command: ", command)
 
-@app.command("/hctgprojectinfo")
-@app.command("/hctgprojectinfoquiet")
-def getproject(ack, say, command, logger, ):
-    ack()
-    QUIET = command["command"] == "/hctgprojectinfoquiet"
-    commandtext = command["text"]
-    try:
-        projectId = int(commandtext)
-    except Exception as e:
-        say("Please provide a valid project ID " + f"<@{command['user_id']}>")
-        return
 
+def projectabstractionthingrllylong(say, projectId, user_id, thread_ts=None, ephemeral=False):
+    say("fetching project info...", thread_ts=thread_ts)
+    projectId = int(projectId)
     try:
         project = jm.getProjectById(projectId)
     except Exception as e:
-        say("An error occurred while fetching the project info " + f"<@{command['user_id']}>")
+        say("An error occurred while fetching the project info " + f"<@{user_id}>", ephemeral=ephemeral, thread_ts=thread_ts)
         return
     
     if project is None:
-        say("No project found with that ID " + f"<@{command['user_id']}>")
+        say("No project found with that ID " + f"<@{user_id}>", ephemeral=ephemeral, thread_ts=thread_ts)
         return
     
 
     ai_declaration_1, ai_declaration_2 = {}, {}
-    if project["ai_declaration"] is not None and project["ai_declaration"] != "":
+    if project["ai_declaration"] is not None and project["ai_declaration"] !="":
         ai_declaration_1 = {
 			"type": "markdown",
 			"text": "---- \n ## 🤖 AI declaration\n "
@@ -129,17 +145,42 @@ def getproject(ack, say, command, logger, ):
 						"type": "plain_text",
 						"text": ":book: Readme"
 					},
-					"url": demourl
+					"url": readme
 				}
 			]
 		}
 	]
-    say(text=f"here's the info for project id {projectId} " + f"<@{command['user_id']}>")
+
+    say(text=f"here's the info for project id {projectId} <@{user_id}>", thread_ts=thread_ts, ephemeral=ephemeral)
     say(
         text=f"information about project",
-        blocks=blocks
+        blocks=blocks,
+        thread_ts=thread_ts,
+        ephemeral=ephemeral
     )
-    
+
+
+@app.command("/hctgprojectinfo")
+@app.command("/hctgprojectinfoquiet")
+def getproject(ack, say, command, logger, thread_ts=None):
+	ack()
+	projectooid = extract_project_id(command["text"])
+	if not projectooid:
+		say("Invalid project ID or URL", ephemeral=True)
+		return
+	projectabstractionthingrllylong(
+        say=say,
+        projectId=projectooid,
+        user_id=command["user_id"],
+        thread_ts=thread_ts,
+        ephemeral=command["command"] == "/hctgprojectinfoquiet"
+    )
+
+
+
+
+
+
 
 
 @app.event("message")
@@ -148,10 +189,25 @@ def lookup_handler(body, logger, say, ):
     LOOKUP_CHANNEL = os.environ.get("SLACK_LOOKUP_CHANNEL")
     if body["event"]["channel"] != LOOKUP_CHANNEL: print("not lookup channel"); return
     
+    # Skip events that don't have text (e.g., edited, deleted, reactions)
+    if "text" not in body["event"]:
+        return
+    
     msg_ts = body["event"]["ts"]
     msg_text = body["event"]["text"]
-
-    say("hi", thread_ts=msg_ts)
+    
+    projectId = extract_project_id(msg_text)
+    if not projectId:
+        say("No valid project ID or URL found", thread_ts=msg_ts, ephemeral=True)
+        return
+    print(projectId)
+    projectabstractionthingrllylong(
+        say=say,
+        projectId=projectId,
+        user_id=body["event"]["user"],
+        thread_ts=msg_ts,
+        ephemeral=False
+    )
 
 
 
