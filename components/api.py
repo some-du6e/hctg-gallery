@@ -1,8 +1,13 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 import components.jsonManager as jm
 from components.www import router as www_router
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 app = FastAPI()
+app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
 app.include_router(www_router)
 
 @app.get("/api/projects/{project_id}")

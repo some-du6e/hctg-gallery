@@ -6,6 +6,18 @@ router = APIRouter()
 BASE_DIR = Path(__file__).resolve().parent.parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
+sidebar_links = [
+    {
+        "name": "Home",
+        "href": "/",
+        "icon": "home"
+    }
+
+]
+
+
+
 @router.get("/")
 async def home(request: Request):
-    return templates.TemplateResponse(request, "home.html")
+    return templates.TemplateResponse(request, "home.html", "test": [])
+
