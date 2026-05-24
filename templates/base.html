@@ -9,7 +9,7 @@
   <body>
     <div class="flex min-h-screen overflow-x-hidden antialiased bg-[#ededed]">
       <div
-        class="fixed start-0 top-0 bottom-0 z-60 h-screen w-full transform transition-all duration-300 lg:relative lg:end-auto lg:bottom-0 lg:block lg:w-96 lg:translate-x-0 bg-[#0f0f0f] -translate-x-full"
+        class="fixed start-0 top-0 bottom-0 z-60 h-screen w-full shrink-0 transform transition-all duration-300 lg:relative lg:end-auto lg:bottom-0 lg:block lg:w-96 lg:translate-x-0 bg-[#0f0f0f] -translate-x-full"
         role="dialog"
         tabindex="-1"
         aria-label="Sidebar"
@@ -45,10 +45,7 @@
                   <div
                     class="transition-all relative flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white shrink-0 group-hover:bg-[#fecb0d]"
                     title="">
-                    <img
-                      alt=""
-                      class="h-7 w-7"
-                      src="{{ link.icon }}" />
+                    <img alt="" class="h-7 w-7" src="{{ link.icon }}" />
                   </div>
                 </div>
                 <div class="relative z-10 -ml-4 rounded-r-2xl py-2 pr-10 transition-all pl-4">
@@ -90,59 +87,42 @@
                     class="smoothing-black truncate text-[26px] leading-tight font-bold tracking-[-0.04em]">
                     Karim
                   </div>
-                  <div class="flex items-center gap-2">
+                  <div class="flex items-center justify-between">
                     <div class="flex items-center gap-1.5">
                       <img
                         alt=""
                         class="h-4 w-4"
                         src="data:image/svg+xml,%3csvg%20width='100%25'%20height='100%25'%20overflow='visible'%20style='display:%20block;'%20viewBox='0%200%2031%2026'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20id='Ticket%20Icon'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M17.05%200C17.4296%205.25047e-05%2017.7961%200.146178%2018.0798%200.410662C18.3635%200.675146%2018.5447%201.03959%2018.5891%201.43487L18.6%201.625C18.6004%202.03918%2018.7517%202.43755%2019.0229%202.73872C19.2941%203.0399%2019.6648%203.22113%2020.0592%203.2454C20.4535%203.26968%2020.8419%203.13515%2021.1448%202.86932C21.4478%202.60349%2021.6425%202.22641%2021.6891%201.81513L21.7%201.625C21.7%201.19402%2021.8633%200.780698%2022.154%200.475952C22.4447%200.171205%2022.8389%200%2023.25%200H26.35C27.5833%200%2028.766%200.513615%2029.638%201.42785C30.5101%202.34209%2031%203.58207%2031%204.875V21.125C31%2022.4179%2030.5101%2023.6579%2029.638%2024.5721C28.766%2025.4864%2027.5833%2026%2026.35%2026H23.25C22.8704%2025.9999%2022.5039%2025.8538%2022.2202%2025.5893C21.9365%2025.3249%2021.7553%2024.9604%2021.7108%2024.5651L21.7%2024.375C21.6996%2023.9608%2021.5483%2023.5624%2021.2771%2023.2613C21.0059%2022.9601%2020.6352%2022.7789%2020.2408%2022.7546C19.8465%2022.7303%2019.4581%2022.8648%2019.1552%2023.1307C18.8522%2023.3965%2018.6575%2023.7736%2018.6108%2024.1849L18.6%2024.375C18.6%2024.806%2018.4367%2025.2193%2018.146%2025.524C17.8553%2025.8288%2017.4611%2026%2017.05%2026H4.65C3.41674%2026%202.234%2025.4864%201.36195%2024.5721C0.489909%2023.6579%200%2022.4179%200%2021.125V4.875C0%203.58207%200.489909%202.34209%201.36195%201.42785C2.234%200.513615%203.41674%200%204.65%200H17.05ZM20.15%2014.625C19.7389%2014.625%2019.3447%2014.7962%2019.054%2015.101C18.7633%2015.4057%2018.6%2015.819%2018.6%2016.25V17.875C18.6%2018.306%2018.7633%2018.7193%2019.054%2019.024C19.3447%2019.3288%2019.7389%2019.5%2020.15%2019.5C20.5611%2019.5%2020.9553%2019.3288%2021.246%2019.024C21.5367%2018.7193%2021.7%2018.306%2021.7%2017.875V16.25C21.7%2015.819%2021.5367%2015.4057%2021.246%2015.101C20.9553%2014.7962%2020.5611%2014.625%2020.15%2014.625ZM20.15%206.5C19.7704%206.50005%2019.4039%206.64618%2019.1202%206.91066C18.8365%207.17515%2018.6553%207.53959%2018.6108%207.93488L18.6%208.125V9.75C18.6004%2010.1642%2018.7517%2010.5626%2019.0229%2010.8637C19.2941%2011.1649%2019.6648%2011.3461%2020.0592%2011.3704C20.4535%2011.3947%2020.8419%2011.2602%2021.1448%2010.9943C21.4478%2010.7285%2021.6425%2010.3514%2021.6891%209.94012L21.7%209.75V8.125C21.7%207.69402%2021.5367%207.2807%2021.246%206.97595C20.9553%206.67121%2020.5611%206.5%2020.15%206.5Z'%20fill='var(--fill-0,%20black)'/%3e%3c/svg%3e" />
-                      <span class="smoothing-black text-xl tracking-[-0.06em]">45.06</span>
+                      <span class="smoothing-black text-xl tracking-[-0.06em]">46</span>
                     </div>
-                    <div class="flex items-center gap-1.5" data-hctg-stat="hours">
-                      <img
-                        alt=""
-                        class="h-4 w-4"
-                        src="data:image/svg+xml,%3csvg%20width='100%25'%20height='100%25'%20overflow='visible'%20style='display:%20block;'%20viewBox='0%200%2016%2016'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20id='Clock%20Icon'%20d='M8%200C12.4184%200%2016%203.5816%2016%208C16%2012.4184%2012.4184%2016%208%2016C3.5816%2016%200%2012.4184%200%208C0%203.5816%203.5816%200%208%200ZM8%203.2C7.78783%203.2%207.58434%203.28429%207.43431%203.43431C7.28429%203.58434%207.2%203.78783%207.2%204V8C7.20005%208.21216%207.28436%208.41561%207.4344%208.5656L9.8344%2010.9656C9.98528%2011.1113%2010.1874%2011.192%2010.3971%2011.1901C10.6069%2011.1883%2010.8075%2011.1042%2010.9559%2010.9559C11.1042%2010.8075%2011.1883%2010.6069%2011.1901%2010.3971C11.192%2010.1874%2011.1113%209.98528%2010.9656%209.8344L8.8%207.6688V4C8.8%203.78783%208.71571%203.58434%208.56569%203.43431C8.41566%203.28429%208.21217%203.2%208%203.2Z'%20fill='var(--fill-0,%20black)'/%3e%3c/svg%3e" />
-                      <span class="smoothing-black text-xl tracking-[-0.025em]">98.26</span>
+                    <div class="flex items-center gap-2">
+                      <button
+                        class="cursor-pointer text-black/70 transition-transform hover:scale-110"
+                        title="Logout"
+                        type="button">
+                        <img class="h-5 w-5" src="/icons/logout.svg" />
+                      </button>
+                      <a
+                        class="cursor-pointer text-black/70 transition-transform hover:scale-110"
+                        title="Notifications"
+                        href="/notifications">
+                        <img class="h-5 w-5" src="/icons/notification-black.svg" />
+                      </a>
+                      <a
+                        class="text-black/70 transition-transform hover:scale-110"
+                        title="Settings"
+                        href="/me">
+                        <img class="h-5 w-5" src="/icons/settings.svg" />
+                      </a>
                     </div>
                   </div>
-                  <div class="flex items-center gap-1.5" data-hctg-stat="usd">
-                    <img
-                      alt=""
-                      class="h-4 w-4"
-                      src="data:image/svg+xml,%3csvg%20width='100%25'%20height='100%25'%20overflow='visible'%20style='display:%20block;'%20viewBox='80%2064%20480%20512'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M392%20176L248%20176L210.7%20101.5C208.9%2097.9%20208%2093.9%20208%2089.9C208%2075.6%20219.6%2064%20233.9%2064L406.1%2064C420.4%2064%20432%2075.6%20432%2089.9C432%2093.9%20431.1%2097.9%20429.3%20101.5L392%20176zM233.6%20224L406.4%20224L455.1%20264.6C521.6%20320%20560%20402%20560%20488.5C560%20536.8%20520.8%20576%20472.5%20576L167.4%20576C119.2%20576%2080%20536.8%2080%20488.5C80%20402%20118.4%20320%20184.9%20264.6L233.6%20224zM324%20288C313%20288%20304%20297%20304%20308L304%20312C275.2%20312.3%20252%20335.7%20252%20364.5C252%20390.2%20270.5%20412.1%20295.9%20416.3L337.6%20423.3C343.6%20424.3%20348%20429.5%20348%20435.6C348%20442.5%20342.4%20448.1%20335.5%20448.1L280%20448C269%20448%20260%20457%20260%20468C260%20479%20269%20488%20280%20488L304%20488L304%20492C304%20503%20313%20512%20324%20512C335%20512%20344%20503%20344%20492L344%20487.3C369%20483.2%20388%20461.6%20388%20435.5C388%20409.8%20369.5%20387.9%20344.1%20383.7L302.4%20376.7C296.4%20375.7%20292%20370.5%20292%20364.4C292%20357.5%20297.6%20351.9%20304.5%20351.9L352%20351.9C363%20351.9%20372%20342.9%20372%20331.9C372%20320.9%20363%20311.9%20352%20311.9L344%20311.9L344%20307.9C344%20296.9%20335%20287.9%20324%20287.9z'%20fill='var(--fill-0,%20black)'/%3e%3c/svg%3e" />
-                    <span class="smoothing-black text-xl tracking-[-0.06em]">0.57hrs/17.14hrs</span>
-                  </div>
-                </div>
-                <div class="flex items-center gap-0.5 flex-col">
-                  <button
-                    class="cursor-pointer text-black/70 transition-transform hover:scale-110"
-                    title="Logout"
-                    type="button">
-                    <img class="h-5 w-5" src="/icons/logout.svg" />
-                  </button>
-                  <a
-                    class="cursor-pointer text-black/70 transition-transform hover:scale-110"
-                    title="Notifications"
-                    href="/notifications">
-                    <img class="h-5 w-5" src="/icons/notification-black.svg" />
-                  </a>
-                  <a
-                    class="text-black/70 transition-transform hover:scale-110"
-                    title="Settings"
-                    href="/me">
-                    <img class="h-5 w-5" src="/icons/settings.svg" />
-                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {% for item in sidebarlinks %}
-      <a href="{{ item.href }}">{{ item.name }}</a>
-      {% endfor %}
-      <div id="app">{% block content %}{% endblock %}</div>
+      <div id="app" class="min-w-0 flex-1">{% block content %}{% endblock %}</div>
     </div>
   </body>
 </html>

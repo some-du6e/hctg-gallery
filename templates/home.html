@@ -1,5 +1,402 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<main class="relative -ml-2 h-screen w-full flex-1 overflow-y-scroll px-6 py-10">
+  <div class="flex flex-col gap-16 px-6 py-8 xl:px-24 xl:py-24">
+    <div class="flex flex-col gap-6">
+      <div class="flex items-baseline gap-6">
+        <img
+          alt=""
+          class="h-16 w-auto invert"
+          src="data:image/svg+xml,%3csvg%20width='100%25'%20height='100%25'%20overflow='visible'%20style='display:%20block;'%20viewBox='0%200%2029%2035'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20id='Union'%20d='M14.8721%205.71582V11.2314L10.4102%206.98535V14.1064C10.9678%2013.6082%2011.3436%2013.5488%2012.4551%2013.2529C14.2155%2012.7843%2015.5544%2012.5615%2016.7686%2012.5615C18.1309%2012.5616%2019.3656%2012.7918%2020.4717%2013.2529C21.5912%2013.714%2022.5087%2014.4187%2023.2236%2015.3672C23.8307%2016.1708%2024.201%2017.0011%2024.3359%2017.8574C24.4708%2018.7006%2024.5381%2020.0843%2024.5381%2022.0078V23.8418H24.5391V28.0146L29%2023.7686V29.2842L22.959%2035H20.3857L14.1279%2028.7764V23.8418L18.6504%2027.9023V21.5527C18.6504%2020.3936%2018.4476%2019.4584%2018.043%2018.7471C17.5169%2017.7458%2016.5183%2017.2451%2015.0479%2017.2451C13.5237%2017.2452%2012.3632%2017.7459%2011.5674%2018.7471C10.7852%2019.7352%2010.4102%2021.1519%2010.4102%2022.9961V34.6553H4.64746V6.98535L0%2011.1582V6.22363L6.25684%200H8.83008L14.8721%205.71582Z'%20fill='var(--fill-0,%20white)'/%3e%3c/svg%3e"
+          title="" />
+        <h1 class="smoothing-black text-5xl tracking-[-0.06em]">
+          Welcome to
+          <span class="font-bold">HC:TG lookup!</span>
+        </h1>
+      </div>
+      <p class="smoothing-black text-2xl tracking-[-0.01em]">
+        In this stage of the game, everyone
+        <span class="font-bold">creates projects!</span>
+        Your goal is to get 40 hours of work on
+        <span class="font-bold">any</span>
+        kind of technical project. After that's done, you'll be guaranteed an invite to the game!
+      </p>
+    </div>
+    <div
+      class="mx-auto w-full max-w-4xl overflow-hidden rounded-3xl border-4 border-black bg-black shadow-[10px_10px_0_0_rgba(0,0,0,0.9)]">
+      <div class="aspect-video w-full">
+        <iframe
+          class="h-full w-full"
+          src="https://www.youtube.com/embed/FT5jE3tca4A"
+          title="Hack Club: The Game video"
+          allow="
+            accelerometer;
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            gyroscope;
+            picture-in-picture;
+            web-share;
+          "
+          allowfullscreen=""></iframe>
+      </div>
+    </div>
+    <a
+      class="flex items-center justify-between rounded-2xl bg-[#fecb0d] p-6 transition-transform hover:scale-[1.01]"
+      href="/invite">
+      <div>
+        <p class="smoothing-black text-2xl font-bold tracking-[-0.02em]">
+          Invite your friends and win a Blahaj!
+        </p>
+        <p class="smoothing-black text-lg">
+          We're giving out a free Blahaj in a raffle for those that invite people to Hack Club: The
+          Game! The more people you invite, the higher your chances to win the raffle!
+        </p>
+      </div>
+      <span class="smoothing-black text-xl font-bold">→</span>
+    </a>
+    <div class="flex w-full flex-col">
+      <div class="relative flex items-center">
+        <div class="relative z-10 h-16 w-16 shrink-0 rounded-full bg-[#fecb0d]"></div>
+        <div class="relative -mx-3 h-5 flex-1 overflow-hidden rounded-full bg-black">
+          <div class="barbershop-stripes absolute inset-y-0 left-0" style="width: 100%"></div>
+          <div class="absolute inset-y-0 left-0 bg-[#fecb0d]" style="width: 100%"></div>
+        </div>
+        <div class="relative z-10 h-16 w-16 shrink-0 rounded-full bg-[#fecb0d]"></div>
+      </div>
+      <div class="mt-1 flex items-start justify-between px-1">
+        <span class="smoothing-black pl-12 text-2xl font-bold tracking-tight">Begin</span>
+        <div class="hidden px-10 lg:block">
+          <p class="smoothing-black text-center text-2xl tracking-[-0.04em]">
+            You currently have
+            <span class="font-bold">46 tickets</span>
+            .
+          </p>
+          <p class="smoothing-black text-center text-2xl tracking-[-0.04em]">
+            In total, you've logged
+            <span class="font-bold">99 hours and 43 minutes!</span>
+            <br />
+            You haven't shipped
+            <span class="font-bold">52h 30m</span>
+            yet.
+          </p>
+        </div>
+        <span class="smoothing-black min-w-max pr-12 text-2xl font-bold tracking-tight">
+          Eligible to Qualify
+        </span>
+      </div>
+      <div class="mt-4 px-1 text-center lg:hidden">
+        <p class="smoothing-black text-2xl tracking-[-0.04em]">
+          You currently have
+          <span class="font-bold">46 tickets</span>
+          .
+        </p>
+        <p class="smoothing-black text-2xl tracking-[-0.04em]">
+          In total, you've logged
+          <span class="font-bold">99 hours and 43 minutes!</span>
+          <br />
+          You haven't shipped
+          <span class="font-bold">52h 30m</span>
+          yet.
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-5xl font-bold tracking-[-0.06em]">Announcements</h2>
+        <p class="text-2xl text-[#606060]">Click on any of them to read the full thing!</p>
+      </div>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-[repeat(auto-fill,minmax(340px,1fr))]">
+        <a
+          href="https://hackclub.slack.com/archives/C0A7HQZFFNX/p1778515770234909?thread_ts=1778515770.234909&amp;cid=C0A7HQZFFNX"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col">
+          <div class="h-[37px] rounded-tl-2xl rounded-tr-2xl bg-black"></div>
+          <div
+            class="flex-1 overflow-clip rounded-br-2xl rounded-bl-2xl border-2 border-t-0 border-black bg-white px-5 py-5">
+            <div class="mb-4 flex items-center gap-1">
+              <img
+                class="h-8 w-8 rounded-full object-cover"
+                alt="phthallo"
+                src="https://avatars.slack-edge.com/2026-01-02/10222102531364_81897bd5a29daff5c6c7_72.jpg" />
+              <span class="smoothing-black text-2xl font-bold tracking-[-0.02em]">@phthallo</span>
+            </div>
+            <div
+              class="smoothing-black line-clamp-4 text-xl tracking-[-0.02em] [&amp;_a]:underline">
+              ^ see above, apologies for ping
+            </div>
+          </div>
+        </a>
+        <a
+          href="https://hackclub.slack.com/archives/C0A7HQZFFNX/p1778448312656669?thread_ts=1778448312.656669&amp;cid=C0A7HQZFFNX"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col">
+          <div class="h-[37px] rounded-tl-2xl rounded-tr-2xl bg-black"></div>
+          <div
+            class="flex-1 overflow-clip rounded-br-2xl rounded-bl-2xl border-2 border-t-0 border-black bg-white px-5 py-5">
+            <div class="mb-4 flex items-center gap-1">
+              <img
+                class="h-8 w-8 rounded-full object-cover"
+                alt="phthallo"
+                src="https://avatars.slack-edge.com/2026-01-02/10222102531364_81897bd5a29daff5c6c7_72.jpg" />
+              <span class="smoothing-black text-2xl font-bold tracking-[-0.02em]">@phthallo</span>
+            </div>
+            <div
+              class="smoothing-black line-clamp-4 text-xl tracking-[-0.02em] [&amp;_a]:underline">
+              ok fine the ship deadline has been moved to 6:00pm et (~35 minutes from now). you have
+              until then to ship your last minute projects to qualify for the event. ( if the option
+              isn't appearing for you it's because the website is still redeploying) don't make me
+              regret ts
+            </div>
+          </div>
+        </a>
+        <a
+          href="https://hackclub.slack.com/archives/C0A7HQZFFNX/p1778443297572329?thread_ts=1778443297.572329&amp;cid=C0A7HQZFFNX"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col">
+          <div class="h-[37px] rounded-tl-2xl rounded-tr-2xl bg-black"></div>
+          <div
+            class="flex-1 overflow-clip rounded-br-2xl rounded-bl-2xl border-2 border-t-0 border-black bg-white px-5 py-5">
+            <div class="mb-4 flex items-center gap-1">
+              <img
+                class="h-8 w-8 rounded-full object-cover"
+                alt="radioblahaj"
+                src="https://avatars.slack-edge.com/2026-05-22/11187597712338_27cce0e02f74dd5e07ce_72.png" />
+              <span class="smoothing-black text-2xl font-bold tracking-[-0.02em]">
+                @radioblahaj
+              </span>
+            </div>
+            <div
+              class="smoothing-black line-clamp-4 text-xl tracking-[-0.02em] [&amp;_a]:underline">
+              new thread for priority reviews for ppl planning to attend the IRL event
+            </div>
+          </div>
+        </a>
+        <a
+          href="https://hackclub.slack.com/archives/C0A7HQZFFNX/p1778429010604309?thread_ts=1778429010.604309&amp;cid=C0A7HQZFFNX"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col">
+          <div class="h-[37px] rounded-tl-2xl rounded-tr-2xl bg-black"></div>
+          <div
+            class="flex-1 overflow-clip rounded-br-2xl rounded-bl-2xl border-2 border-t-0 border-black bg-white px-5 py-5">
+            <div class="mb-4 flex items-center gap-1">
+              <img
+                class="h-8 w-8 rounded-full object-cover"
+                alt="radioblahaj"
+                src="https://avatars.slack-edge.com/2026-05-22/11187597712338_27cce0e02f74dd5e07ce_72.png" />
+              <span class="smoothing-black text-2xl font-bold tracking-[-0.02em]">
+                @radioblahaj
+              </span>
+            </div>
+            <div
+              class="smoothing-black line-clamp-4 text-xl tracking-[-0.02em] [&amp;_a]:underline">
+              <strong>You have 5 hours left to qualify for the IRL event!</strong>
 
-{% block content %}
-    <h1 class="text-3xl font-bold">Hello from israel</h1>
+              Today's the last day to qualify for HCTG and submit your projects if you're planning
+              on going to the IRL event.
+              <strong>Shipping will be locked for all users at 5pm EST for 24 hours</strong>
+
+              We will be reviewing your projects after submissions close and
+              <strong>you'll be able to purchase an invite after you get enough tickets</strong>
+              . We encourage you to purchase an invite ASAP as soon as you get enough tickets.
+
+              <strong>
+                If you're not attending the IRL event, you will still be able to ship projects once
+                shipping reopens tomorrow at 5pm EST
+              </strong>
+              ,
+              <strong>and the shop will remain open until Late June (Date TBA)</strong>
+
+              See you at HCTG :D
+            </div>
+          </div>
+        </a>
+        <a
+          href="https://hackclub.slack.com/archives/C0A7HQZFFNX/p1778274929134409?thread_ts=1778274929.134409&amp;cid=C0A7HQZFFNX"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col">
+          <div class="h-[37px] rounded-tl-2xl rounded-tr-2xl bg-black"></div>
+          <div
+            class="flex-1 overflow-clip rounded-br-2xl rounded-bl-2xl border-2 border-t-0 border-black bg-white px-5 py-5">
+            <div class="mb-4 flex items-center gap-1">
+              <img
+                class="h-8 w-8 rounded-full object-cover"
+                alt="phthallo"
+                src="https://avatars.slack-edge.com/2026-01-02/10222102531364_81897bd5a29daff5c6c7_72.jpg" />
+              <span class="smoothing-black text-2xl font-bold tracking-[-0.02em]">@phthallo</span>
+            </div>
+            <div
+              class="smoothing-black line-clamp-4 text-xl tracking-[-0.02em] [&amp;_a]:underline">
+              <strong>IMPORTANT ANNOUNCEMENT + DEADLINE EXTENSION</strong>
+
+              DEADLINE TO QUALIFY FOR THE EVENT IS NOW
+              <a
+                href="https://time.cs50.io/20260510T1700-0400?title=LAST+TIME+TO+SUBMIT+PROJECTS+TO+QUALIFY+FOR+HCTG&amp;location=https%3A%2F%2Fgame.hackclub.com">
+                5PM ET ON SUNDAY MAY 10TH
+              </a>
+              . (~48H FROM NOW) shipping will
+              <strong>lock for 24h after that time</strong>
+              while we review projects. as soon as you have the tickets, you must buy an
+              <a href="https://game.hackclub.com">invite on the shop</a>
+              ASAP, then log on to
+              <a href="http://attend.hackclub.com">attend.hackclub.com</a>
+              to complete all your attendee information by
+              <a
+                href="https://time.cs50.io/20260511T2359-0400?title=Deadline+to+complete+attendee+information&amp;location=https%3A%2F%2Fgame.hackclub.com">
+                11:59pm ET on monday
+              </a>
+              may 11th.
+
+              <strong>REACT to this message with</strong>
+              <strong>
+                if you are 100% planning to come to hack club the game but have NOT bought an invite
+              </strong>
+              (still working on your projects and going to ship and buy an invite in the next two
+              days), [we need to make sure we've reserved the right amount of beds for yall!]
+            </div>
+          </div>
+        </a>
+        <a
+          href="https://hackclub.slack.com/archives/C0A7HQZFFNX/p1778115850766879"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col">
+          <div class="h-[37px] rounded-tl-2xl rounded-tr-2xl bg-black"></div>
+          <div
+            class="flex-1 overflow-clip rounded-br-2xl rounded-bl-2xl border-2 border-t-0 border-black bg-white px-5 py-5">
+            <div class="mb-4 flex items-center gap-1">
+              <img
+                class="h-8 w-8 rounded-full object-cover"
+                alt="radioblahaj"
+                src="https://avatars.slack-edge.com/2026-05-22/11187597712338_27cce0e02f74dd5e07ce_72.png" />
+              <span class="smoothing-black text-2xl font-bold tracking-[-0.02em]">
+                @radioblahaj
+              </span>
+            </div>
+            <div
+              class="smoothing-black line-clamp-4 text-xl tracking-[-0.02em] [&amp;_a]:underline">
+              hi everyone! Fulfillment will be delayed as I focus on some other tasks for the IRL
+              event and personal stuff. Those of you who have been waiting for a long time will have
+              your order fulfilled tomorrow I promise. I'm going to figure out all the MC and Steam
+              ones tomorrow. All other orders will be fulfilled on an ongoing basis
+            </div>
+          </div>
+        </a>
+        <a
+          href="https://hackclub.slack.com/archives/C0A7HQZFFNX/p1778081867743579?thread_ts=1778081867.743579&amp;cid=C0A7HQZFFNX"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col">
+          <div class="h-[37px] rounded-tl-2xl rounded-tr-2xl bg-black"></div>
+          <div
+            class="flex-1 overflow-clip rounded-br-2xl rounded-bl-2xl border-2 border-t-0 border-black bg-white px-5 py-5">
+            <div class="mb-4 flex items-center gap-1">
+              <img
+                class="h-8 w-8 rounded-full object-cover"
+                alt="radioblahaj"
+                src="https://avatars.slack-edge.com/2026-05-22/11187597712338_27cce0e02f74dd5e07ce_72.png" />
+              <span class="smoothing-black text-2xl font-bold tracking-[-0.02em]">
+                @radioblahaj
+              </span>
+            </div>
+            <div
+              class="smoothing-black line-clamp-4 text-xl tracking-[-0.02em] [&amp;_a]:underline">
+              <strong>There are 2 days left to qualify for HCTG!</strong>
+              Quick reminders: If you are
+              <strong>attending the event and are waiting for a review,</strong>
+              drop your project in this
+              <a href="https://hackclub.slack.com/archives/C0A7HQZFFNX/p1777905370746119">thread</a>
+
+              If you
+              <strong>have 20 hours or are near 20 hours and want to attend</strong>
+              , apply for an extension after the event
+              <a href="https://forms.hackclub.com/hctg-extension">here</a>
+              . If you have 40 hours, buy your ticket now! If you need a
+              <strong>need-based travel stipend</strong>
+              , we still have some left for high quality projects, you can apply
+              <a href="https://forms.hackclub.com/hctg-travel-stipend">here</a>
+
+              If you are not attending HCTG, you have until
+              <strong>June 8th to submit projects</strong>
+
+              <strong>BOOK YOUR FLIGHTS IF YOU ARE CONFIDENT YOU ARE COMING</strong>
+              as flight prices will increase the more you wait I can't wait to see you all there :3
+            </div>
+          </div>
+        </a>
+        <a
+          href="https://hackclub.slack.com/archives/C0A7HQZFFNX/p1777930015060919?thread_ts=1777930015.060919&amp;cid=C0A7HQZFFNX"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col">
+          <div class="h-[37px] rounded-tl-2xl rounded-tr-2xl bg-black"></div>
+          <div
+            class="flex-1 overflow-clip rounded-br-2xl rounded-bl-2xl border-2 border-t-0 border-black bg-white px-5 py-5">
+            <div class="mb-4 flex items-center gap-1">
+              <img
+                class="h-8 w-8 rounded-full object-cover"
+                alt="phthallo"
+                src="https://avatars.slack-edge.com/2026-01-02/10222102531364_81897bd5a29daff5c6c7_72.jpg" />
+              <span class="smoothing-black text-2xl font-bold tracking-[-0.02em]">@phthallo</span>
+            </div>
+            <div
+              class="smoothing-black line-clamp-4 text-xl tracking-[-0.02em] [&amp;_a]:underline">
+              parent call starting in 4 minutes join join join
+
+              <a href="https://hack.club/z-join?id=3kpc1q">https://hack.club/z-join?id=3kpc1q</a>
+            </div>
+          </div>
+        </a>
+        <a
+          href="https://hackclub.slack.com/archives/C0A7HQZFFNX/p1777905653286859?thread_ts=1777905653.286859&amp;cid=C0A7HQZFFNX"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col">
+          <div class="h-[37px] rounded-tl-2xl rounded-tr-2xl bg-black"></div>
+          <div
+            class="flex-1 overflow-clip rounded-br-2xl rounded-bl-2xl border-2 border-t-0 border-black bg-white px-5 py-5">
+            <div class="mb-4 flex items-center gap-1">
+              <img
+                class="h-8 w-8 rounded-full object-cover"
+                alt="phthallo"
+                src="https://avatars.slack-edge.com/2026-01-02/10222102531364_81897bd5a29daff5c6c7_72.jpg" />
+              <span class="smoothing-black text-2xl font-bold tracking-[-0.02em]">@phthallo</span>
+            </div>
+            <div
+              class="smoothing-black line-clamp-4 text-xl tracking-[-0.02em] [&amp;_a]:underline">
+              ^^ (sorry in advance, there'll be a lot of pings in the coming days )
+            </div>
+          </div>
+        </a>
+        <a
+          href="https://hackclub.slack.com/archives/C0A7HQZFFNX/p1777832562982709?thread_ts=1777832562.982709&amp;cid=C0A7HQZFFNX"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col">
+          <div class="h-[37px] rounded-tl-2xl rounded-tr-2xl bg-black"></div>
+          <div
+            class="flex-1 overflow-clip rounded-br-2xl rounded-bl-2xl border-2 border-t-0 border-black bg-white px-5 py-5">
+            <div class="mb-4 flex items-center gap-1">
+              <img
+                class="h-8 w-8 rounded-full object-cover"
+                alt="phthallo"
+                src="https://avatars.slack-edge.com/2026-01-02/10222102531364_81897bd5a29daff5c6c7_72.jpg" />
+              <span class="smoothing-black text-2xl font-bold tracking-[-0.02em]">@phthallo</span>
+            </div>
+            <div
+              class="smoothing-black line-clamp-4 text-xl tracking-[-0.02em] [&amp;_a]:underline">
+              FIVE DAYS LEFT UNTIL THE DEADLINE TO QUALIFY FOR HCTG
+
+              <a href="https://luma.com/qw56ggvp">RSVP FOR THE PARENT CALL TOMORROW AT 5:30PM ET</a>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
 {% endblock %}
