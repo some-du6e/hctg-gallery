@@ -120,11 +120,22 @@ def getPageAmount(page: Page, say=fakeSay) -> tuple[Page, int]:
 
 def getDumpFromGalleryPage(page: Page, pageNum: int, say=fakeSay):
     PAGE_URL = f"https://game.hackclub.com/explore?page={pageNum}"
+    say(f"getDumpFromGalleryPage: going to gallery page with pageNum {pageNum}...")
     page.goto(PAGE_URL)
 
     page, props = getDatapage(page, say)
 
     currentPageProjects = props["projects"]
+
+    return page, currentPageProjects
+
+def getFeaturedProjects(page: Page, say=fakeSay): # reused from getDumpFromGalleryPage 
+    PAGE_URL = f"https://game.hackclub.com/"
+    page.goto(PAGE_URL)
+
+    page, props = getDatapage(page, say)
+
+    currentPageProjects = props["featured_projects"]
 
     return page, currentPageProjects
 

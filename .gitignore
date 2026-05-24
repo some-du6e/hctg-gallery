@@ -223,3 +223,4 @@ cookies.json
 # the reason why i decided to make them private is bc if someone makes a project showing pii i wont have it in the git history
 paginated_projects.json
 projects.json
+featured_projects.json

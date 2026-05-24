@@ -52,12 +52,15 @@ def message_hello(message, say, client):
 
 
 @app.command("/updategallery")
-def update_gallery_command(ack, say, command, logger):
+def update_gallery_command(ack, say, respond, command, logger):
     ack()
     user_id = command["user_id"]
 
-    if user_id != os.environ.get("SLACK_ADMIN_USER_ID"):
-        say(f"Sorry <@{user_id}>, you don't have permission to use this command.", ephemeral=True)
+    if user_id != os.environ.get("SLACK_ADMIN"):
+        respond(
+            text=f"Sorry <@{user_id}>, you don't have permission to use this command.",
+            response_type="ephemeral",
+        )
         return
 
     say(f"<@{command['user_id']}> made me update the gallery mirror")

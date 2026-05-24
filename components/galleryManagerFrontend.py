@@ -29,6 +29,13 @@ def updateGalleryJSON(say=fakeSay):
     with open("paginated_projects.json", "w") as file:
         json.dump(PAGINATED_PROJECTS, file)
 
+
+    page, FEATURED_PROJECTS = be.getFeaturedProjects(page, say)
+    say("saving featured projects to file")
+    with open("featured_projects.json", "w") as file:
+        json.dump(FEATURED_PROJECTS, file)
     say("Done updating the gallery! 🎉")
+
+    page.close()
 
 
