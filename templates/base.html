@@ -19,17 +19,14 @@
           <nav class="relative z-10 mt-6 flex flex-col gap-[40px]">
             <div
               class="pointer-events-none absolute top-2 left-[30px] z-0 h-[90%] w-[15px] rounded-full bg-white"></div>
-            {% for link in sidebarlinks %}
+            {% for link in sidebarlinks %} {% if page == link.name %}
             <a class="group group relative z-10 flex items-center" href="{{ link.href }}">
               <div class="flex items-center transition-all pr-4">
                 <div
                   class="transition-all relative z-20 flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full bg-[#fecb0d]">
                   <div
                     class="transition-all relative flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white">
-                    <img
-                      alt=""
-                      class="h-7 w-7"
-                      src="{{ link.icon }}">
+                    <img alt="" class="h-7 w-7" src="{{ link.icon }}" />
                   </div>
                 </div>
                 <div
@@ -41,8 +38,28 @@
                 </div>
               </div>
             </a>
-            {% endfor %}
-            
+            {% else %}
+            <a class="group group relative z-10 flex items-center" href="{{ link.href }}">
+              <div class="flex items-center transition-all gap-[29px] px-3">
+                <div class="transition-all contents">
+                  <div
+                    class="transition-all relative flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white shrink-0 group-hover:bg-[#fecb0d]"
+                    title="">
+                    <img
+                      alt=""
+                      class="h-7 w-7"
+                      src="{{ link.icon }}" />
+                  </div>
+                </div>
+                <div class="relative z-10 -ml-4 rounded-r-2xl py-2 pr-10 transition-all pl-4">
+                  <span
+                    class="transition-all text-4xl font-bold tracking-[-0.02em] transition-transform hover:scale-105 smoothing-white text-white group-hover:text-[#fecb0d]">
+                    {{ link.name }}
+                  </span>
+                </div>
+              </div>
+            </a>
+            {% endif %} {% endfor %}
           </nav>
 
           <div class="relative z-10 mt-auto mr-16 flex flex-col gap-4 lg:mr-0">
@@ -123,7 +140,7 @@
         </div>
       </div>
       {% for item in sidebarlinks %}
-        <a href="{{ item.href }}">{{ item.name }}</a>
+      <a href="{{ item.href }}">{{ item.name }}</a>
       {% endfor %}
       <div id="app">{% block content %}{% endblock %}</div>
     </div>
