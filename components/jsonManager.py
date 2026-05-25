@@ -4,6 +4,10 @@ def getProjects():
     with open("projects.json", "r") as file:
         return json.load(file)
     
+def getFeaturedProjects():
+    with open("featured_projects.json", "r") as file:
+        return json.load(file)
+    
 def getPaginatedProjects():
     with open("paginated_projects.json", "r") as file:
         return json.load(file)
