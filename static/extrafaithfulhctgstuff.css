@@ -206,3 +206,7 @@ html,
 .active {
   
 }
+
+.group:hover .group-hover\:invert {
+  filter: invert(1);
+}
