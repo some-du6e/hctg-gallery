@@ -1,6 +1,5 @@
-{% from "components/projectcard.html" import projectCard %}
-
-{% extends "base.html" %} {% block content %}
+{% from "components/projectcard.html" import projectCard %} {% extends "base.html" %} {% block
+content %}
 <main class="relative -ml-2 h-screen w-full flex-1 overflow-y-scroll px-6 py-10 overflow-hidden">
   <div class="flex flex-col gap-16 px-6 py-8 xl:px-24 xl:py-24">
     <div class="flex flex-col gap-6">
@@ -18,21 +17,28 @@
       <p class="smoothing-black text-2xl tracking-[-0.01em]">
         This is mostly the frontend for the
         <a class="font-bold text-[#0000EE] underline" href="/docs">api found here.</a>
-        I made this because how i handled viewing projects in 
-        <a class="font-bold text-[#0000EE] underline" href="https://github.com/some-du6e/HCTGplus">HCTG+</a>
-        was really bad and there was no simple api for it 
+        I made this because how i handled viewing projects in
+        <a class="font-bold text-[#0000EE] underline" href="https://github.com/some-du6e/HCTGplus">
+          HCTG+
+        </a>
+        was really bad and there was no simple api for it
       </p>
     </div>
-    
 
     <div class="absolute bottom-0 translate-y-1/4 w-full">
-        <div class="relative grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 w-7xl">
-            {% for project in featured_projects[:9] %}
-            {{ projectCard(project) }}
-            {% endfor %}
-            <div class="absolute inset-0 backdrop-blur-lg [mask-image:linear-gradient(to_top,black,transparent)] w-full"></div>
-            <a class="smoothing-white absolute left-1/2 top-1/2 z-10 block w-[28rem] max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 cursor-pointer bg-black px-5 py-3 text-center text-xl font-bold tracking-tight text-white transition-colors hover:bg-[#fecb0d] hover:text-black">Browse gallery</a>
-        </div>
+      <div
+        class="relative grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 w-7xl">
+        {% for project in featured_projects[:9] %} {{ projectCard(project) }} {% endfor %}
+        <div
+          class="absolute inset-0 backdrop-blur-lg [mask-image:linear-gradient(to_top,black,transparent)] w-full"></div>
+        <a
+          class="smoothing-white absolute left-1/2 top-1/2 z-10 block w-[28rem] max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 cursor-pointer bg-black px-5 py-3 text-center text-xl font-bold tracking-tight text-white transition-colors hover:bg-[#fecb0d] hover:text-black flex-items-center gap-2">
+          <img
+            src="data:image/svg+xml,%3csvg%20width='100%25'%20height='100%25'%20overflow='visible'%20style='display:%20block;'%20viewBox='0%200%2028%2028'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20id='Compass%20Icon'%20d='M14%200C21.7322%200%2028%206.2678%2028%2014C28%2021.7322%2021.7322%2028%2014%2028C6.2678%2028%200%2021.7322%200%2014C0%206.2678%206.2678%200%2014%200ZM19.9402%208.0598C19.4446%207.5656%2013.0102%209.0496%2011.0306%2011.0306C9.051%2013.0102%207.5656%2019.4446%208.0598%2019.9402C8.5554%2020.4344%2014.9898%2018.9504%2016.9694%2016.9694C18.9504%2014.9898%2020.4344%208.5554%2019.9402%208.0598ZM14%2012.6C14.3713%2012.6%2014.7274%2012.7475%2014.9899%2013.0101C15.2525%2013.2726%2015.4%2013.6287%2015.4%2014C15.4%2014.3713%2015.2525%2014.7274%2014.9899%2014.9899C14.7274%2015.2525%2014.3713%2015.4%2014%2015.4C13.6287%2015.4%2013.2726%2015.2525%2013.0101%2014.9899C12.7475%2014.7274%2012.6%2014.3713%2012.6%2014C12.6%2013.6287%2012.7475%2013.2726%2013.0101%2013.0101C13.2726%2012.7475%2013.6287%2012.6%2014%2012.6Z'%20fill='var(--fill-0,%20black)'/%3e%3c/svg%3e"
+            style="width: 20px; height: 20px; filter: invert(1)" />
+          <span>Browse gallery</span>
+        </a>
+      </div>
     </div>
   </div>
 </main>
