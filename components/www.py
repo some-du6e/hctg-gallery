@@ -1,7 +1,9 @@
-from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
-from pathlib import Path
+from fastapi import APIRouter, Request
 import components.jsonManager as jm
+from pathlib import Path
+import random
+
 router = APIRouter()
 BASE_DIR = Path(__file__).resolve().parent.parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
@@ -24,8 +26,9 @@ sidebar_links = [
     }
 
 ]
+def balance():
+    return random.randint(0, 100)
 
 @router.get("/")
 async def home(request: Request):
-    return templates.TemplateResponse(request, "home.html", {"sidebarlinks": sidebar_links, "page": "Home", "featured_projects": jm.getFeaturedProjects()})
-
+    return templates.TemplateResponse(request, "home.html", {"sidebarlinks": sidebar_links, "page": "Home", "featured_projects": jm.getFeaturedProjects(), "balance": balance()})
