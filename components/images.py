@@ -4,6 +4,9 @@ import requests
 import boto3
 import os
 
+def fakeSay(message: str):
+    print(message)
+
 def initS3Client():
     s3 = boto3.client(
         service_name='s3',

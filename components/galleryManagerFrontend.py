@@ -1,6 +1,9 @@
 import components.galleryManagerBackend as be
+import components.images as im
 import json
+import os
 
+HCTG_BASE_URL = os.getenv("HCTG_BASE_URL", "https://game.hackclub.com")
 def fakeSay(message: str):
     print(message)
 
@@ -15,6 +18,16 @@ def updateGalleryJSON(say=fakeSay):
     PAGINATED_PROJECTS = {}
     for i in range(pages):
         page, currentPageProjects = be.getDumpFromGalleryPage(page, i, say)
+
+        for project in currentPageProjects:
+            if isinstance(project, str):
+                project = json.loads(project)
+
+            screenshot = project.get("screenshot")
+            project_id = project.get("id")
+            if screenshot and project_id is not None:
+                img_url = f"{HCTG_BASE_URL}{screenshot}"
+                im.uploadImage(img_url, project_id)
 
         PROJECTS.extend(currentPageProjects)
         PAGINATED_PROJECTS[i] = currentPageProjects
