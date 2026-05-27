@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+from pathlib import Path
 import requests
 import boto3
 import os
@@ -12,5 +14,18 @@ def initS3Client():
     )
     return s3
 
-def uploadImage(url):
-    if os.exis
+def uploadImage(url, projectId: int):
+    response = requests.get(url)
+    cli = initS3Client()
+
+    # get file extension
+    cleanpath = urlparse(url).path
+    extension = Path(cleanpath).suffix
+
+    if response.status_code == 200:
+        cli.put_object(
+        Bucket="hctg-gallery",
+        Key=f"{str(projectId)}{extension}",
+        Body=response.content
+    )
+        

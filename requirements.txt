@@ -3,3 +3,6 @@ playwright
 json
 uvicorn
 boto3
+requests
+pathlib
+urllib
