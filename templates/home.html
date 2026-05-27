@@ -1,6 +1,6 @@
 {% from "components/projectcard.html" import projectCard %} {% extends "base.html" %} {% block
 content %}
-<main class="relative -ml-2 h-screen w-full flex-1 overflow-y-scroll px-6 py-10 overflow-hidden">
+<main class="relative -ml-2 h-screen w-full flex-1 overflow-hidden px-6 py-10">
   <div class="flex flex-col gap-16 px-6 py-8 xl:px-24 xl:py-24">
     <div class="flex flex-col gap-6">
       <div class="flex items-baseline gap-6">
@@ -25,10 +25,10 @@ content %}
       </p>
     </div>
 
-    <div class="absolute bottom-0 translate-y-1/4 w-full">
+    <div class="relative mt-24 max-h-[760px] w-full overflow-hidden">
       <div
-        class="relative grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 w-7xl">
-        {% for project in featured_projects[:9] %} {{ projectCard(project) }} {% endfor %}
+        class="relative mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 min-[1900px]:grid-cols-3">
+        {% for project in featured_projects[:6] %} {{ projectCard(project) }} {% endfor %}
         <div
           class="absolute inset-0 backdrop-blur-lg [mask-image:linear-gradient(to_top,black,transparent)] w-full"></div>
         <a
