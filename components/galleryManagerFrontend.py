@@ -19,15 +19,7 @@ def updateGalleryJSON(say=fakeSay):
     for i in range(pages):
         page, currentPageProjects = be.getDumpFromGalleryPage(page, i, say)
 
-        for project in currentPageProjects:
-            if isinstance(project, str):
-                project = json.loads(project)
-
-            screenshot = project.get("screenshot")
-            project_id = project.get("id")
-            if screenshot and project_id is not None:
-                img_url = f"{HCTG_BASE_URL}{screenshot}"
-                im.uploadImage(img_url, project_id)
+        im.massUploadProjectImages(currentPageProjects)
 
         PROJECTS.extend(currentPageProjects)
         PAGINATED_PROJECTS[i] = currentPageProjects
