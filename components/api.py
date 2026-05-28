@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 import components.jsonManager as jm
 from components.www import router as www_router
-
+# gotta keep the commit graph green
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 app = FastAPI()
