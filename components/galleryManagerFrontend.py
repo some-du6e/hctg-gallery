@@ -1,4 +1,5 @@
 import components.galleryManagerBackend as be
+from datetime import datetime
 import components.images as im
 import json
 import os
@@ -7,9 +8,21 @@ HCTG_BASE_URL = os.getenv("HCTG_BASE_URL", "https://game.hackclub.com")
 def fakeSay(message: str):
     print(message)
 
+class timer:
+    def start(self):
+        self.startTime = datetime.now()
+    def stop(self):
+        self.endTime = datetime.now()
+        self.diff = self.endTime - self.startTime
+        return str(self.diff)
+
+
 
 def updateGalleryJSON(say=fakeSay):
-    
+    say("Starting timer...")
+    time = timer()
+    time.start()
+
     page = be.initBrowser(say)
     
     page, pages = be.getPageAmount(page, say)
@@ -40,7 +53,9 @@ def updateGalleryJSON(say=fakeSay):
     with open("featured_projects.json", "w") as file:
         json.dump(FEATURED_PROJECTS, file)
     say("Done updating the gallery! 🎉")
-
+    
+    stop = time.stop()
+    say(f"Total time taken: {stop}")
     page.close()
 
 
