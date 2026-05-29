@@ -31,7 +31,7 @@ def uploadImage(url, projectId: int, say=fakeSay):
     extension = Path(cleanpath).suffix
 
     if response.status_code == 200:
-        say("uploadImage: got image with 200, now uploading to s3...")
+        say(f"uploadImage: got image with 200, now uploading project {projectId} to s3...")
         cli.put_object(
         Bucket="hctg-gallery",
         Key=f"{str(projectId)}{extension}",
