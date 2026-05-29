@@ -22,9 +22,8 @@ def initS3Client(say=fakeSay):
     say("initS3Client: initialized S3 client, returning it now...")
     return s3
 
-def uploadImage(url, projectId: int, say=fakeSay):
+def uploadImage(url, projectId: int, cli, say=fakeSay):
     response = requests.get(url)
-    cli = initS3Client(say)
 
     # get file extension
     cleanpath = urlparse(url).path
@@ -40,14 +39,15 @@ def uploadImage(url, projectId: int, say=fakeSay):
         
 
 
-def uploadProjectImages(project, say=fakeSay):
+def uploadProjectImages(project, say=fakeSay, cli=None):
     screenshot = project.get("screenshot")
     project_id = project.get("id")
     if screenshot and project_id is not None:
         img_url = f"{HCTG_BASE_URL}{screenshot}"
-        uploadImage(img_url, project_id, say)
+        uploadImage(img_url, project_id, cli, say)
 
 
 def massUploadProjectImages(projects, say=fakeSay):
+    cli = initS3Client(say)
     with ThreadPoolExecutor(max_workers=5) as executor:
-        executor.map(lambda project: uploadProjectImages(project, say), projects)
+        executor.map(lambda project: uploadProjectImages(project, say, cli), projects)
