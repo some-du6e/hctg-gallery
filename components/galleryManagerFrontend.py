@@ -18,8 +18,8 @@ class timer:
 
 
 
-def updateGalleryJSON(say=fakeSay):
-    say("Starting timer...")
+def updateGalleryJSON(say=fakeSay, important_say=fakeSay):
+    important_say("Starting timer...")
     time = timer()
     time.start()
 
@@ -32,7 +32,7 @@ def updateGalleryJSON(say=fakeSay):
     for i in range(pages):
         page, currentPageProjects = be.getDumpFromGalleryPage(page, i, say)
 
-        im.massUploadProjectImages(currentPageProjects)
+        im.massUploadProjectImages(currentPageProjects, say)
 
         PROJECTS.extend(currentPageProjects)
         PAGINATED_PROJECTS[i] = currentPageProjects
@@ -52,10 +52,10 @@ def updateGalleryJSON(say=fakeSay):
     say("saving featured projects to file")
     with open("featured_projects.json", "w") as file:
         json.dump(FEATURED_PROJECTS, file)
-    say("Done updating the gallery! 🎉")
+    important_say("Done updating the gallery! 🎉")
     
     stop = time.stop()
-    say(f"Total time taken: {stop}")
+    important_say(f"Total time taken: {stop}")
     page.close()
 
 

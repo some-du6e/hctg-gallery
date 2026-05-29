@@ -64,7 +64,6 @@ def get_team_id(body=None, message=None, command=None):
         return body["authorizations"][0].get("team_id")
     return None
 
-
 class wierdFakeSayThing:
     def __init__(self, client, message, recipient_team_id, recipient_user_id):
         self.client = client
@@ -90,6 +89,13 @@ class wierdFakeSayThing:
     def stop(self):
         self.client.chat_stopStream(channel=self.message["channel"], ts=self.ts)
 
+class importantSay:
+    def __init__(self, client, thread_ts, channel):
+        self.client = client
+        self.thread_ts = thread_ts
+        self.channel = channel
+    def say(self, text):
+        self.client.chat_postMessage(text=text, channel=self.channel, thread_ts=self.thread_ts)
 @app.message("wqdninqwio")
 def message_hello(message, say, client, body):    
     say("dsandklsandklsandlksa")
@@ -142,10 +148,18 @@ def update_gallery_command(ack, say, respond, command, logger):
         recipient_user_id=command["user_id"],
     )
     say = sayy.say
+
+    x = importantSay(
+        client=app.client,
+        thread_ts=yo["ts"],
+        channel=yo["channel"],
+    )
+    important_say = x.say
+
     
     def update_gallery_with_stream():
         try:
-            fe.updateGalleryJSON(say)
+            fe.updateGalleryJSON(say, important_say)
         finally:
             sayy.stop()
 
