@@ -3,8 +3,8 @@ load_dotenv()
 import os
 
 import components.galleryManagerFrontend as gm
-timer = gm.timer()
-timer.start()
-print(timer.startTime)
-timer.stop()
-print(timer.endTime)
+chat.appendStream(stream.id, PlanBlock([
+	TaskCard("Searching knowledge base...", status="in_progress"),
+]))
+chat.appendStream(stream.id, TaskCard("Searching knowledge base...", status="complete"))
+chat.appendStream(stream.id, TaskCard("Drafting response...", status="in_progress"))

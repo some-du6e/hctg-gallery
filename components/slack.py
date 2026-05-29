@@ -1,14 +1,21 @@
-from openai import project
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 import components.galleryManagerFrontend as fe
 import components.jsonManager as jm
 from dotenv import load_dotenv
 from slack_bolt import App
+from time import sleep
 import threading
+import random
 import os
 
 
-
+def taskCard(thing):
+    return {
+        "type": "task_update",
+        "id": str(random.randint(0, 999999)), # should be unique per card, but doesn't need to be cryptographically secure
+        "title": thing,
+        "status": "complete",
+    } 
 load_dotenv()
 
 def extract_project_id(input_str):
@@ -48,6 +55,28 @@ app = App(token=os.environ.get("SLACK_BOT_TOKEN"))
 @app.message("wqdninqwio")
 def message_hello(message, say, client):    
     say("dsandklsandklsandlksa")
+    yo = client.chat_startStream(
+        channel=message["channel"],
+        thread_ts=message["ts"],
+        recipient_team_id=message["team"],
+        recipient_user_id=message["user"],
+        icon_emoji=":thinking:",
+        task_display_mode="plan",
+        chunks=[{
+            "type": "markdown_text",
+            "text": "hello",
+        }],
+    )
+    ts = yo["ts"]
+    sleep(0.1)
+    client.chat_appendStream(chunks=[taskCard("1")], channel=message["channel"], ts=ts)
+    sleep(2)
+    client.chat_appendStream(chunks=[taskCard("2")], channel=message["channel"], ts=ts)
+    sleep(2)
+    client.chat_appendStream(chunks=[taskCard("3")], channel=message["channel"], ts=ts)
+    
+    client.chat_stopStream(channel=message["channel"], ts=ts)
+
 
 
 
