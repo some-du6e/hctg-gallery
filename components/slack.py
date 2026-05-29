@@ -52,13 +52,51 @@ def formatTime(seconds):
 
 app = App(token=os.environ.get("SLACK_BOT_TOKEN"))
 
+
+def get_team_id(body=None, message=None, command=None):
+    if command and command.get("team_id"):
+        return command["team_id"]
+    if body and body.get("team_id"):
+        return body["team_id"]
+    if message and message.get("team"):
+        return message["team"]
+    if body and body.get("authorizations"):
+        return body["authorizations"][0].get("team_id")
+    return None
+
+
+class wierdFakeSayThing:
+    def __init__(self, client, message, recipient_team_id, recipient_user_id):
+        self.client = client
+        self.message = message
+
+        yo = client.chat_startStream(
+            channel=self.message["channel"],
+            thread_ts=self.message["ts"],
+            recipient_team_id=recipient_team_id,
+            recipient_user_id=recipient_user_id,
+            icon_emoji=":thinking:",
+            task_display_mode="plan",
+            chunks=[{
+                "type": "markdown_text",
+                "text": "hello",
+            }],
+        )
+        self.ts = yo["ts"]
+
+    def say(self, text):
+        self.client.chat_appendStream(chunks=[taskCard(text)], channel=self.message["channel"], ts=self.ts)
+
+    def stop(self):
+        self.client.chat_stopStream(channel=self.message["channel"], ts=self.ts)
+
 @app.message("wqdninqwio")
-def message_hello(message, say, client):    
+def message_hello(message, say, client, body):    
     say("dsandklsandklsandlksa")
     yo = client.chat_startStream(
         channel=message["channel"],
         thread_ts=message["ts"],
-        recipient_team_id=message["team"],
+        recipient_team_id=get_team_id(body=body, message=message),
         recipient_user_id=message["user"],
         icon_emoji=":thinking:",
         task_display_mode="plan",
@@ -68,12 +106,15 @@ def message_hello(message, say, client):
         }],
     )
     ts = yo["ts"]
-    sleep(0.1)
-    client.chat_appendStream(chunks=[taskCard("1")], channel=message["channel"], ts=ts)
-    sleep(2)
-    client.chat_appendStream(chunks=[taskCard("2")], channel=message["channel"], ts=ts)
-    sleep(2)
-    client.chat_appendStream(chunks=[taskCard("3")], channel=message["channel"], ts=ts)
+    # sleep(0.1)
+    # client.chat_appendStream(chunks=[taskCard("1")], channel=message["channel"], ts=ts)
+    # sleep(2)
+    # client.chat_appendStream(chunks=[taskCard("2")], channel=message["channel"], ts=ts)
+    # sleep(2)
+    # client.chat_appendStream(chunks=[taskCard("3")], channel=message["channel"], ts=ts)
+    for i in range(30):
+        sleep(0.01)
+        client.chat_appendStream(chunks=[taskCard(f"update {i}")], channel=message["channel"], ts=ts)
     
     client.chat_stopStream(channel=message["channel"], ts=ts)
 
@@ -92,12 +133,24 @@ def update_gallery_command(ack, say, respond, command, logger):
         )
         return
 
-    say(f"<@{command['user_id']}> made me update the gallery mirror")
+    yo = say(f"<@{command['user_id']}> made me update the gallery mirror")
     
+    sayy = wierdFakeSayThing(
+        client=app.client,
+        message=yo,
+        recipient_team_id=get_team_id(command=command),
+        recipient_user_id=command["user_id"],
+    )
+    say = sayy.say
     
-    t = threading.Thread(target=fe.updateGalleryJSON, args=(say,))
-    t.start()
+    def update_gallery_with_stream():
+        try:
+            fe.updateGalleryJSON(say)
+        finally:
+            sayy.stop()
 
+    t = threading.Thread(target=update_gallery_with_stream)
+    t.start()
 
 # @app.command("/hellotestf")
 # def testing(ack, say, command, logger):
