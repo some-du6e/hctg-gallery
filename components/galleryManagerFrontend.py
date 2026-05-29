@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor
 import components.galleryManagerBackend as be
 from datetime import datetime
 import components.images as im
@@ -16,7 +17,13 @@ class timer:
         self.diff = self.endTime - self.startTime
         return str(self.diff)
 
+def doAPage(i, page, say, PROJECTS, PAGINATED_PROJECTS):
+    page, currentPageProjects = be.getDumpFromGalleryPage(page, i, say)
 
+    im.massUploadProjectImages(currentPageProjects, say)
+
+    PROJECTS.extend(currentPageProjects)
+    PAGINATED_PROJECTS[i] = currentPageProjects
 
 def updateGalleryJSON(say=fakeSay, important_say=fakeSay):
     important_say("Starting timer...")
@@ -29,13 +36,8 @@ def updateGalleryJSON(say=fakeSay, important_say=fakeSay):
 
     PROJECTS = []
     PAGINATED_PROJECTS = {}
-    for i in range(pages):
-        page, currentPageProjects = be.getDumpFromGalleryPage(page, i, say)
-
-        im.massUploadProjectImages(currentPageProjects, say)
-
-        PROJECTS.extend(currentPageProjects)
-        PAGINATED_PROJECTS[i] = currentPageProjects
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        executor.map(lambda i: doAPage(i, page, say, PROJECTS, PAGINATED_PROJECTS), range(pages))
 
     # print(PROJECTS)
     
