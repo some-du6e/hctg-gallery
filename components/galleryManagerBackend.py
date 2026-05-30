@@ -78,7 +78,7 @@ def hctgLogin(page: Page, say=fakeSay):
         return page
     
 
-def initBrowser(say=fakeSay) -> Page:
+def initBrowser(say=fakeSay):
     global _playwright, _browser, _page
     say("initBrowser: starting playwright...")
     _playwright = sync_playwright().start()
@@ -95,7 +95,7 @@ def initBrowser(say=fakeSay) -> Page:
     say("initBrowser: returning page")
     if _page is None:
         raise RuntimeError("Browser page initialization failed")
-    return _page
+    return _page, _browser
     
 
 
