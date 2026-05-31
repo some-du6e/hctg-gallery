@@ -7,6 +7,8 @@ import json
 import os
 
 HCTG_BASE_URL = os.getenv("HCTG_BASE_URL", "https://game.hackclub.com")
+IMG_BASE_URL = os.getenv("IMG_BASE_URL", "https://r2.hctg.gallery.karimeltaib.com")
+
 def fakeSay(message: str):
     print(message)
 
@@ -17,6 +19,12 @@ class timer:
         self.endTime = datetime.now()
         self.diff = self.endTime - self.startTime
         return str(self.diff)
+
+def fixImgUrl(projects):
+    for project in projects:
+        if project.get("screenshot") is not None:
+            project["screenshot"] = HCTG_BASE_URL + project["screenshot"]
+    return projects
 
 def doAPage(i, browser, say, PROJECTS, PAGINATED_PROJECTS):
     context = browser.new_context()
