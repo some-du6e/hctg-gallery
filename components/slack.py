@@ -78,7 +78,7 @@ class wierdFakeSayThing:
             task_display_mode="plan",
             chunks=[{
                 "type": "markdown_text",
-                "text": "hello",
+                "text": "Heres the logs buddy",
             }],
         )
         self.ts = yo["ts"]

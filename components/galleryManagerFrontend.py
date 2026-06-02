@@ -1,4 +1,4 @@
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, as_completed
 import components.galleryManagerBackend as be
 import components.images as im
 from datetime import datetime
@@ -8,6 +8,7 @@ import os
 
 HCTG_BASE_URL = os.getenv("HCTG_BASE_URL", "https://game.hackclub.com")
 IMG_BASE_URL = os.getenv("IMG_BASE_URL", "https://r2.hctg.gallery.karimeltaib.com")
+HCTG_WORKERS = int(os.getenv("HCTG_WORKERS", "3"))
 
 def fakeSay(message: str):
     print(message)
@@ -26,17 +27,13 @@ def fixImgUrl(projects):
             project["screenshot"] = HCTG_BASE_URL + project["screenshot"]
     return projects
 
-def doAPage(i, browser, say, PROJECTS, PAGINATED_PROJECTS):
-    context = browser.new_context()
-    page = context.new_page()
+def doAPage(i, say):
+    page, browser = be.initBrowser(say)
     page, currentPageProjects = be.getDumpFromGalleryPage(page, i, say)
-
     im.massUploadProjectImages(currentPageProjects, say)
-
-    PROJECTS.extend(currentPageProjects)
-    PAGINATED_PROJECTS[i] = currentPageProjects
-    sleep(1)
     page.close()
+    browser.close()
+    return i, currentPageProjects
 
 def updateGalleryJSON(say=fakeSay, important_say=fakeSay):
     important_say("Starting timer...")
@@ -44,13 +41,19 @@ def updateGalleryJSON(say=fakeSay, important_say=fakeSay):
     time.start()
 
     page, browser = be.initBrowser(say)
-    
     page, pages = be.getPageAmount(page, say)
+    page.close()
+    browser.close()
 
     PROJECTS = []
     PAGINATED_PROJECTS = {}
-    with ProcessPoolExecutor(max_workers=5) as executor:
-        executor.map(lambda i: doAPage(i, browser, say, PROJECTS, PAGINATED_PROJECTS), range(pages))
+    with ProcessPoolExecutor(max_workers=HCTG_WORKERS) as executor:
+        futures = [executor.submit(doAPage, i, say) for i in range(1, pages + 1)]
+        for future in as_completed(futures):
+            i, currentPageProjects = future.result()
+            PROJECTS.extend(currentPageProjects)
+            PAGINATED_PROJECTS[i] = currentPageProjects
+            sleep(0.1)
 
     # print(PROJECTS)
     
@@ -63,6 +66,7 @@ def updateGalleryJSON(say=fakeSay, important_say=fakeSay):
         json.dump(PAGINATED_PROJECTS, file)
 
 
+    page, browser = be.initBrowser(say)
     page, FEATURED_PROJECTS = be.getFeaturedProjects(page, say)
     say("saving featured projects to file")
     with open("featured_projects.json", "w") as file:
@@ -72,5 +76,6 @@ def updateGalleryJSON(say=fakeSay, important_say=fakeSay):
     stop = time.stop()
     important_say(f"Total time taken: {stop}")
     page.close()
+    browser.close()
 
 
