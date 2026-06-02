@@ -49,8 +49,13 @@ def updateGalleryJSON(say=fakeSay, important_say=fakeSay):
 
     PROJECTS = []
     PAGINATED_PROJECTS = {}
-    with ProcessPoolExecutor(max_workers=5) as executor:
-        executor.map(lambda i: doAPage(i, say, PROJECTS, PAGINATED_PROJECTS), range(pages))
+    for i in range(pages):
+        page, currentPageProjects = be.getDumpFromGalleryPage(page, i, say)
+
+        im.massUploadProjectImages(currentPageProjects, say)
+
+        PROJECTS.extend(currentPageProjects)
+        PAGINATED_PROJECTS[i] = currentPageProjects
 
     # print(PROJECTS)
     
