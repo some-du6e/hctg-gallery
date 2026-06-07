@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 from time import sleep
 import json
+import components.images as im
 
 # Keep Playwright instance alive at module level
 _playwright = None
@@ -137,6 +138,9 @@ def getFeaturedProjects(page: Page, say=fakeSay): # reused from getDumpFromGalle
 
     currentPageProjects = props["featured_projects"]
 
+    currentPageProjects = im.fixImgUrl(currentPageProjects)
+    im.massUploadProjectImages(currentPageProjects, say)
+    
     return page, currentPageProjects
 
 

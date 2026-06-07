@@ -65,3 +65,30 @@ def massUploadProjectImages(projects, say=fakeSay):
     cli = initS3Client(say)
     with ThreadPoolExecutor(max_workers=5) as executor:
         executor.map(lambda project: uploadProjectImages(project, say, cli), projects)
+
+def fixImgUrl(projects, say=fakeSay):
+    """Normalize project screenshot URLs.
+
+    - If `screenshot` is empty, leave it.
+    - If it already starts with http/https, leave it.
+    - If it starts with IMG_BASE_URL (no scheme), add scheme
+    - Otherwise, prefix with HCTG_BASE_URL.
+    """
+    from urllib.parse import urlparse
+    for p in projects:
+        sc = p.get("screenshot")
+        if not sc:
+            continue
+
+        sc = str(sc).strip()
+        # If it's a full URL, extract the path so uploadImage can prefix HCTG_BASE_URL
+        if sc.startswith("http://") or sc.startswith("https://"):
+            parsed = urlparse(sc)
+            path = parsed.path or ""
+            p["screenshot"] = path if path.startswith("/") else f"/{path}"
+            continue
+
+        # Ensure it starts with a single leading slash
+        p["screenshot"] = sc if sc.startswith("/") else f"/{sc}"
+
+    return projects
