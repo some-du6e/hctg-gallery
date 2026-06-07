@@ -1,0 +1,6 @@
+{% macro formatSeconds(secs) %}
+	{% set hours = secs // 3600 %}
+	{% set minutes = (secs % 3600) // 60 %}
+
+	{{ hours }}h {{ minutes }}m
+{% endmacro %}
