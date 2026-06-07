@@ -11,3 +11,5 @@ if __name__ == "__main__":
     
     apiThread.start()
     slack.start()
+
+    print("dont forget to do shit fat chud")

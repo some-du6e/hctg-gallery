@@ -36,7 +36,7 @@ def uploadImage(url, projectId: int, cli, say=fakeSay):
         Key=f"{str(projectId)}{extension}",
         Body=response.content
     )
-        
+    return extension
 
 
 def uploadProjectImages(project, say=fakeSay, cli=None):
@@ -44,7 +44,21 @@ def uploadProjectImages(project, say=fakeSay, cli=None):
     project_id = project.get("id")
     if screenshot and project_id is not None:
         img_url = f"{HCTG_BASE_URL}{screenshot}"
-        uploadImage(img_url, project_id, cli, say)
+        ex = uploadImage(img_url, project_id, cli, say)
+        if not ex:
+            say(f"uploadProjectImages: upload failed for project {project_id}, skipping screenshot update")
+            return project
+
+        img_base = os.getenv('IMG_BASE_URL')
+        if not img_base:
+            say("uploadProjectImages: IMG_BASE_URL not set, skipping screenshot update")
+            return project
+
+        img_base = img_base.rstrip('/')
+        project["screenshot"] = f"{img_base}/{project_id}{ex}"
+        return project
+
+    
 
 
 def massUploadProjectImages(projects, say=fakeSay):
