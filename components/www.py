@@ -32,3 +32,7 @@ def balance():
 @router.get("/")
 async def home(request: Request):
     return templates.TemplateResponse(request, "home.html", {"sidebarlinks": sidebar_links, "page": "Home", "featured_projects": jm.getFeaturedProjects(), "balance": balance()})
+
+@router.get("/gallery")
+async def gallery(request: Request):
+    return templates.TemplateResponse(request, "gallery.html", {"sidebarlinks": sidebar_links, "page": "Gallery", "balance": balance()})

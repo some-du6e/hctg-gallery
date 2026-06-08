@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block content %}
+<main class="relative -ml-2 h-screen w-full flex-1 overflow-y-scroll px-6 py-10">
+  <div class="relative -ml-6 -translate-x-2">
+    <div class="relative flex h-[72px] w-full items-center">
+      <div class="flex h-full">
+        <div class="relative flex h-full min-w-xl items-center px-10 md:px-16 bg-[#0f0f0f]">
+          <span
+            class="text-[48px] font-bold tracking-[-0.06em] text-nowrap text-white smoothing-white">
+            Gallery
+          </span>
+        </div>
+        <div
+          class="h-full w-8 -translate-x-px bg-[#0f0f0f]"
+          style="clip-path: polygon(100% 50%, 0% 0%, 0% 100%)"></div>
+      </div>
+    </div>
+    <div class="smoothing-black mt-5 pl-16 text-xl leading-snug text-black/80">
+      Take a look at all of the cool projects submitted to Hack Club: The Game!
+    </div>
+  </div>
+  <div class="mt-8 pl-8">
+    <div
+      class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+      id="gallery-projects-container">
+      
+      
+    </div>
+  </div>
+  
+</main>
+{% endblock %}
