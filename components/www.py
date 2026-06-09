@@ -36,3 +36,9 @@ async def home(request: Request):
 @router.get("/gallery")
 async def gallery(request: Request):
     return templates.TemplateResponse(request, "gallery.html", {"sidebarlinks": sidebar_links, "page": "Gallery", "balance": balance()})
+
+
+@router.get("/api/projects/html/{page_num}")
+def project_page_html(page_num: str, request: Request):
+    projectos = jm.getGalleryPage(page_num)
+    return templates.TemplateResponse(request, "page.html", {"projects": projectos, "next_page": int(page_num)+1, "iflast_page": len(projectos) < 12})

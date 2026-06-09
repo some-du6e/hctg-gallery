@@ -1,0 +1,7 @@
+{% from "components/projectcard.html" import projectCard %}
+
+<div class="fake-page">
+    {% for project in projects %} {{ projectCard(project) }} {% endfor %}
+</div>
+
+<a class="pagination__next" href="/page/2">Next</a>
