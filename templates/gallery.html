@@ -1,5 +1,5 @@
-{% extends "base.html" %} {% block content %}
-<main class="relative -ml-2 h-screen w-full flex-1 overflow-y-scroll px-6 py-10">
+{% from "components/projectcard.html" import projectCard %} {% extends "base.html" %} {% block content %}
+<main id="gallery-scroll-container" class="relative -ml-2 h-screen w-full flex-1 overflow-y-scroll px-6 py-10">
   <div class="relative -ml-6 -translate-x-2">
     <div class="relative flex h-[72px] w-full items-center">
       <div class="flex h-full">
@@ -22,10 +22,25 @@
     <div
       class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
       id="gallery-projects-container">
-      
-      
+      <div class="fake_page contents">
+        {% for project in projects %} {{ projectCard(project) }} {% endfor %}
+      </div>
     </div>
+    {% if not is_last_page %}
+    <a class="pagination__next" href="/api/projects/html/{{ next_page }}" hidden>next</a>
+    {% endif %}
   </div>
-  
+
+
+  <script src="https://unpkg.com/infinite-scroll@5/dist/infinite-scroll.pkgd.min.js"></script>
+  <script>
+    let infScroll = new InfiniteScroll('#gallery-projects-container', {
+      "path": ".pagination__next",
+      "append": ".fake_page",
+      "history": false,
+      "elementScroll": "#gallery-scroll-container"
+    });
+    
+  </script>
 </main>
 {% endblock %}

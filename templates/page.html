@@ -1,7 +1,10 @@
 {% from "components/projectcard.html" import projectCard %}
 
-<div class="fake-page">
+<div class="fake_page contents">
     {% for project in projects %} {{ projectCard(project) }} {% endfor %}
 </div>
 
-<a class="pagination__next" href="/page/2">Next</a>
+
+{% if not is_last_page %}
+    <a class="pagination__next" href="/api/projects/html/{{ next_page }}" hidden>infinite scroll sucks!</a>
+{% endif %}

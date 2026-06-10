@@ -22,3 +22,7 @@ def getProjectById(projectId: int):
         if project["id"] == projectId:
             return project
     return None
+
+def isLastPage(pageNum: str):
+    paginatedProjects = getPaginatedProjects()
+    return pageNum == str(len(paginatedProjects)-1)  
