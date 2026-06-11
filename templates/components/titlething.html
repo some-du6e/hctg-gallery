@@ -1,22 +1,50 @@
-
-
-{% macro titleThing(title, subtitle) %}
+{% macro titleThing(title, subtitle, yellow_title) %}
 <div class="relative -ml-6 -translate-x-2">
-    <div class="relative flex h-[72px] w-full items-center">
-      <div class="flex h-full">
-        <div class="relative flex h-full min-w-xl items-center px-10 md:px-16 bg-[#0f0f0f]">
-          <span
-            class="text-[48px] font-bold tracking-[-0.06em] text-nowrap text-white smoothing-white">
-            {{ title }}
-          </span>
-        </div>
-        <div
-          class="h-full w-8 -translate-x-px bg-[#0f0f0f]"
-          style="clip-path: polygon(100% 50%, 0% 0%, 0% 100%)"></div>
+  <div class="relative flex h-[72px] w-full items-center">
+    <div class="flex h-full">
+      {% if not yellow_title %}
+      <div class="relative flex h-full min-w-xl items-center px-10 md:px-16 bg-[#0f0f0f]">
+        <span
+          class="text-[48px] font-bold tracking-[-0.06em] text-nowrap text-white smoothing-white">
+          {{ title }}
+        </span>
       </div>
+      {% else %}
+      <div class="relative flex h-full items-center px-10 md:px-16 z-10 shrink-0 bg-[#0f0f0f]">
+        <span
+          class="text-[48px] font-bold tracking-[-0.06em] text-nowrap text-white smoothing-white">
+          {{ title}}
+        </span>
+      </div>
+      {% endif %} {% if not yellow_title %}
+      <div
+        class="h-full w-8 -translate-x-px bg-[#0f0f0f]"
+        style="clip-path: polygon(100% 50%, 0% 0%, 0% 100%)"></div>
     </div>
-    <div class="smoothing-black mt-5 pl-16 text-xl leading-snug text-black/80">
-      {{ subtitle }}
+    {% else %}
+    <div
+      class="h-full w-8 -translate-x-px z-10 shrink-0 bg-[#0f0f0f]"
+      style="clip-path: polygon(100% 50%, 0% 0%, 0% 100%)"></div>
+    {% endif %} {% if yellow_title %}
+    <div class="flex h-full">
+      <div
+        class="relative flex h-full min-w-xl items-center px-10 md:px-16 !-translate-x-8 z-0 bg-[#fecb0d]">
+        <span
+          class="text-[48px] font-bold tracking-[-0.06em] text-nowrap text-black smoothing-black">
+          {{ yellow_title}}
+        </span>
+      </div>
+      <div
+        class="h-full w-8 -translate-x-px !-translate-x-8 z-0 bg-[#fecb0d]"
+        style="clip-path: polygon(100% 50%, 0% 0%, 0% 100%)"></div>
     </div>
+    {% endif %}
   </div>
+  {% if subtitle and not yellow_title %}
+  <div class="smoothing-black mt-5 pl-16 text-xl leading-snug text-black/80">{{ subtitle }}</div>
+  {% elif subtitle and yellow_title %}
+  <script>alert("you cant use subtitles with the yellow title!!!")</script>
+  
+  {% endif %}
+</div>
 {% endmacro %}

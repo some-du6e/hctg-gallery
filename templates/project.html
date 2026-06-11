@@ -1,5 +1,10 @@
-{% from "components/utils.html" import formatSeconds %}
+{% from "components/titlething.html" import titleThing %} 
 {% from "components/bigprojectcard.html" import bigProjectCard %}
 {% extends "base.html" %} {% block content %}
-
+<main id="gallery-scroll-container" class="relative -ml-2 h-screen w-full flex-1 overflow-y-scroll px-6 py-10">
+    {{ titleThing("Gallery", null, project.title)}}
+    <div class="mt-8 pl-8">
+        {{ bigProjectCard(project) }}
+    </div>  
+</main>
 {% endblock %}
