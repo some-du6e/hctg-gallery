@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 import components.jsonManager as jm
-from components.www import router as www_router
+from components.www import notFound, router as www_router
 # gotta keep the commit graph green
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -36,3 +36,11 @@ def get_project_page(page_num):
     except Exception as e:
         return {"error": str(e)}
 
+
+@app.middleware("http")
+async def add_process_time_header(request, call_next):
+    response = await call_next(request)
+
+    if response.status_code == 404:
+        return await notFound(request)
+    return response
