@@ -13,7 +13,7 @@
         <div class="absolute top-2 left-5 flex gap-1.5" style="left: 0.5rem; top: 0.5rem;">
             <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20448%20512%22%3E%3C!--!Font%20Awesome%20Free%20v7.2.0%20by%20%40fontawesome%20-%20https%3A%2F%2Ffontawesome.com%20License%20-%20https%3A%2F%2Ffontawesome.com%2Flicense%2Ffree%20Copyright%202026%20Fonticons%2C%20Inc.--%3E%3Cpath%20d%3D%22M192%200c-35.3%200-64%2028.7-64%2064l0%20256c0%2035.3%2028.7%2064%2064%2064l192%200c35.3%200%2064-28.7%2064-64l0-200.6c0-17.4-7.1-34.1-19.7-46.2L370.6%2017.8C358.7%206.4%20342.8%200%20326.3%200L192%200zM64%20128c-35.3%200-64%2028.7-64%2064L0%20448c0%2035.3%2028.7%2064%2064%2064l192%200c35.3%200%2064-28.7%2064-64l0-16-64%200%200%2016-192%200%200-256%2016%200%200-64-16%200z%22%2F%3E%3C%2Fsvg%3E"
                 class="w-4 invert hover:pink cursor-pointer" title="">
-            <span class="text-[#ffffff] text-sm font-bold invert items-center">{{project.id}}</span>
+            <span class="text-[#ffffff] text-sm font-bold items-center">{{project.id}}</span>
         </div>
     </div>
     <div class="flex flex-1 flex-col rounded-br-2xl rounded-bl-2xl border-2 border-t-0 border-black bg-white px-6 py-4">
@@ -21,9 +21,9 @@
         <div class="flex items-start justify-between gap-6">
             <h2 class="smoothing-black text-4xl font-bold tracking-[-0.03em]">{{project.title}}</h2>
             <div class="flex items-center gap-1.5">
-                <img alt="Hours" class="h-5 w-5" src="{{hoursicon}}">
+                <img alt="Hours" class="h-5 w-5" src="/static/img/hours.svg">
                 <span
-                    class="smoothing-black text-2xl tracking-[-0.03em]">{{formattime(project.approved_seconds)}}</span>
+                    class="smoothing-black text-2xl tracking-[-0.03em]">{{formatSeconds(project.approved_seconds)}}</span>
             </div>
 
         </div>
@@ -33,17 +33,17 @@
             <div class="mt-4 flex items-center gap-2">
                 <a href="{{project.demo_link}}" data-hctg-action-btn="true"
                     class="group smoothing-white justify-center w-full mt-4 flex gap-3 cursor-pointer bg-black px-5 py-3 items-center text-xl font-bold tracking-tight text-white transition-colors hover:bg-[#fecb0d] hover:text-black">
-                    <img src="{{emoicon}}" class="w-4">
+                    <img src="/static/img/demo.svg" class="w-4">
                     Demo
                 </a>
                 <a href="{{project.repo_link}}" data-hctg-action-btn="true"
                     class="group smoothing-white justify-center w-full mt-4 flex gap-3 cursor-pointer bg-black px-5 py-3 items-center text-xl font-bold tracking-tight text-white transition-colors hover:bg-[#fecb0d] hover:text-black">
-                    <img src="{{repoicon}}" class="w-4">
+                    <img src="/static/img/repo.svg" class="w-4">
                     Repository
                 </a>
                 <a href="{{project.repo_link + " /blob/main/README.md"}}" data-hctg-action-btn="true"
                     class="group smoothing-white justify-center w-full mt-4 flex gap-3 cursor-pointer bg-black px-5 py-3 items-center text-xl font-bold tracking-tight text-white transition-colors hover:bg-[#fecb0d] hover:text-black">
-                    <img src="{{readmeicon}}" class="w-4">
+                    <img src="/static/img/readme.svg" class="w-4">
                     Readme
                 </a>
             </div>
