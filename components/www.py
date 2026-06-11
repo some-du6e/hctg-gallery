@@ -35,8 +35,12 @@ async def home(request: Request):
 
 @router.get("/404")
 async def notFound(request: Request):
-    # TODO
-    return templates.TemplateResponse(request, "home.html", {"sidebarlinks": sidebar_links, "page": "Home", "featured_projects": jm.getFeaturedProjects(), "balance": balance()})
+    return templates.TemplateResponse(
+        request,
+        "404.html",
+        {"sidebarlinks": sidebar_links, "page": "404", "balance": balance()},
+        status_code=404,
+    )
 
 
 
@@ -60,10 +64,10 @@ async def projectPage(request: Request, project_id: str):
         project = jm.getProjectById(int(project_id))
     except Exception as e:
         print(e)
-        return notFound(request)
+        return await notFound(request)
 
     if project is None:
-        return notFound(request)
+        return await notFound(request)
     
     return templates.TemplateResponse(request, "project.html", {"sidebarlinks": sidebar_links, "page": "Gallery", "balance": balance(), "project": project})
 

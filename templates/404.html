@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block content %}
+<div class="flex flex-col gap-10 px-6 py-8 xl:px-24 xl:py-16">
+<div class="flex flex-col items-center justify-center p-4">
+    <h2 class="smoothing-black mb-4 text-6xl font-bold tracking-[-0.02em]">404</h2>
+      <h2 class="smoothing-black mb-4 text-3xl font-bold tracking-[-0.02em]">Not found</h2>
+      <span class="mb-4">It seems I couldnt find what you are looking for</span>
+      <a class="group flex h-[59px] w-full cursor-pointer items-center justify-center gap-3 bg-black text-xl font-bold text-white transition-colors hover:border-4 hover:bg-white hover:text-black disabled:opacity-50" href="/">
+      <img alt="" class="h-5 w-5 transition-all group-hover:invert" src="data:image/svg+xml,%3csvg%20width='100%25'%20height='100%25'%20overflow='visible'%20style='display:%20block;'%20viewBox='0%200%2028%2028'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20id='Arrow%20Vector'%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M0.233334%2021.0198L0%200.3966L19.7556%200L27.4556%207.53541L13.7667%207.77337L28%2021.813L22.2444%2027.9207L7.93333%2013.881V28L0.233334%2021.0198Z'%20fill='var(--fill-0,%20white)'/%3e%3c/svg%3e">
+      Go back home
+      </a>
+</div> </div>
+{% endblock %}
