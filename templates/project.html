@@ -3,8 +3,25 @@
 {% extends "base.html" %} {% block content %}
 <main id="gallery-scroll-container" class="relative -ml-2 h-screen w-full flex-1 overflow-y-scroll px-6 py-10">
     {{ titleThing("Gallery", null, project.title)}}
-    <div class="mt-8 pl-8">
+    <div class="mt-8 pl-8 mb-4">
         {{ bigProjectCard(project) }}
-    </div>  
+    </div>
+    
+    <script src="https://giscus.app/client.js"
+        data-repo="some-du6e/HCTG-comments"
+        data-repo-id="R_kgDOSSGOOA"
+        data-category="Projects"
+        data-category-id="DIC_kwDOSSGOOM4C--7f"
+        data-mapping="specific"
+        data-term="{{ project.id}}"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
 </main>
 {% endblock %}
