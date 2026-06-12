@@ -8,10 +8,8 @@
     </div>
     
     <details class="ml-6">
-        <summary>Raw project information</summary>
-        <pre>
-            <code class="language-json">{{project}}</code>
-        </pre>
+        <summary>Raw project json</summary>
+        <pre class="language-json"><code class="language-json">{{ project | tojson(indent=4) }}</code></pre>
     </details>
     <script src="/static/prism.js"></script>
 

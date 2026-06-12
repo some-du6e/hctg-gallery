@@ -18,7 +18,8 @@ def get_project(project_id):
         return {"error": str(e)}
     
     try:
-        return jm.getProjectById(project_id)
+        project = jm.getProjectById(project_id, indent=True)
+        return project
     except Exception as e:
         return {"error": str(e)}
     
