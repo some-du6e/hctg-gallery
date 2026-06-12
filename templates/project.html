@@ -7,7 +7,15 @@
         {{ bigProjectCard(project) }}
     </div>
     
-    <script src="https://giscus.app/client.js"
+    <details class="ml-6">
+        <summary>Raw project information</summary>
+        <pre>
+            <code class="language-json">{{project}}</code>
+        </pre>
+    </details>
+    <script src="/static/prism.js"></script>
+
+    <div class="ml-6 mt-6"><script src="https://giscus.app/client.js"
         data-repo="some-du6e/HCTG-comments"
         data-repo-id="R_kgDOSSGOOA"
         data-category="Projects"
@@ -21,7 +29,8 @@
         data-theme="light"
         data-lang="en"
         crossorigin="anonymous"
-        async>
+        async></script>
+        </div>
 </script>
 </main>
 {% endblock %}
