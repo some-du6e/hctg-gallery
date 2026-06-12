@@ -1,5 +1,7 @@
 {% from "components/titlething.html" import titleThing %} 
 {% from "components/bigprojectcard.html" import bigProjectCard %}
+{% from "components/utils.html" import formatSeconds %}
+
 {% extends "base.html" %} {% block content %}
 <main id="gallery-scroll-container" class="relative -ml-2 h-screen w-full flex-1 overflow-y-scroll px-6 py-10">
     {{ titleThing("Gallery", null, project.title)}}
@@ -8,8 +10,22 @@
     </div>
     
     <details class="ml-6">
+        <summary>Extra info</summary>
+        <div class="flex flex-col mb-2">
+            <span>Submitted at <code>{{ project.submitted_at }}</code></span>
+            <span>Approved at <code>{{ project.approved_at }}</code></span>
+
+            <div class="mb-2"></div>
+            
+            <span>User submitted <code>{{ formatSeconds(project.reported_seconds) }}</code></span>
+            <span>Reviewer approved <code>{{ formatSeconds(project.approved_seconds) }}</code></span>
+            <span>Hackatime projects: <code>{{ project.hackatime_projects}}</code></span>
+        </div>
+
+        <details class="">
         <summary>Raw project json</summary>
         <pre class="language-json"><code class="language-json">{{ project | tojson(indent=4) }}</code></pre>
+    </details>
     </details>
     <script src="/static/prism.js"></script>
 
