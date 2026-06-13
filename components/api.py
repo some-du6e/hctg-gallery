@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 import components.jsonManager as jm
@@ -22,7 +22,10 @@ def get_project(project_id):
         return project
     except Exception as e:
         return {"error": str(e)}
-    
+
+
+
+
 @app.get("/api/projects/")
 def get_projects():
     try:
@@ -38,8 +41,24 @@ def get_project_page(page_num):
         return {"error": str(e)}
 
 
+
+
+
+@app.get("/api/projects/filtered/page/{page_num}")
+def get_filtered_project_page(
+    page_num: str,
+    tags: list[int] = Query(default=[]),
+):
+    try:
+        return jm.getFilteredProjectPage(tuple(tags), str(page_num))
+    except Exception as e:
+        return {"error": str(e)}
+
+
+
+
 @app.middleware("http")
-async def add_process_time_header(request, call_next):
+async def find_404_error_codes(request, call_next):
     response = await call_next(request)
 
     if response.status_code == 404:
