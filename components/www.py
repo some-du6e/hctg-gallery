@@ -29,11 +29,11 @@ sidebar_links = [
 def balance():
     return random.randint(0, 100)
 
-@router.get("/")
+@router.get("/", tags=["zFrontend"], deprecated=True)
 async def home(request: Request):
     return templates.TemplateResponse(request, "home.html", {"sidebarlinks": sidebar_links, "page": "Home", "featured_projects": jm.getFeaturedProjects(), "balance": balance()})
 
-@router.get("/404")
+@router.get("/404", tags=["zFrontend"], deprecated=True)
 async def notFound(request: Request):
     return templates.TemplateResponse(
         request,
@@ -44,20 +44,20 @@ async def notFound(request: Request):
 
 
 
-@router.get("/gallery")
+@router.get("/gallery", deprecated=True, tags=["zFrontend"])
 async def gallery(request: Request):
     page_num = "0"
     projectos = jm.getGalleryPage(page_num)
     return templates.TemplateResponse(request, "gallery.html", {"sidebarlinks": sidebar_links, "page": "Gallery", "balance": balance(), "projects": projectos, "next_page": int(page_num)+1, "is_last_page": jm.isLastPage(page_num)})
 
 
-@router.get("/api/projects/html/{page_num}")
+@router.get("/api/projects/html/{page_num}", deprecated=True, tags=["zFrontend"])
 def project_page_html(page_num: str, request: Request):
     projectos = jm.getGalleryPage(page_num)
     return templates.TemplateResponse(request, "page.html", {"projects": projectos, "next_page": int(page_num)+1, "is_last_page": jm.isLastPage(page_num)})
 
 
-@router.get("/project/{project_id}")
+@router.get("/project/{project_id}", deprecated=True, tags=["zFrontend"])
 async def projectPage(request: Request, project_id: str):
     project = None
     try:
