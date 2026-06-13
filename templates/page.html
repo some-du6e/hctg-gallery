@@ -6,5 +6,5 @@
 
 
 {% if not is_last_page %}
-    <a class="pagination__next" href="/api/projects/html/{{ next_page }}" hidden>infinite scroll sucks!</a>
+    <a class="pagination__next" href="/api/projects/html/{{ next_page }}{{ api_query }}" hidden>infinite scroll sucks!</a>
 {% endif %}

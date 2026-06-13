@@ -5,6 +5,21 @@
   {{ titleThing("Gallery", "Take a look at all of the cool projects submitted to Hack Club: The Game!")}}
   
   <div class="mt-8 pl-8">
+    <div class="mb-6 flex flex-wrap items-center gap-3">
+      {% for tag_filter in tag_filters %}
+      <a
+        href="{{ tag_filter.href }}"
+        class="mt-2 cursor-pointer flex items-center gap-2 px-4 py-1.5 font-bold no-underline transition-colors {% if tag_filter.selected %}bg-[#fecb0d] text-black hover:bg-black hover:text-white{% else %}bg-black text-white hover:bg-[#fecb0d] hover:text-black{% endif %}">
+        <span>{{ tag_filter.name }}</span>
+      </a>
+      {% endfor %}
+      {% if selected_tags %}
+      <a href="/gallery" class="mt-2 cursor-pointer px-4 py-1.5 font-bold text-black underline transition-colors hover:bg-black hover:text-white">
+        Clear filters
+      </a>
+      {% endif %}
+    </div>
+
     <div
       class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
       id="gallery-projects-container">
@@ -13,7 +28,7 @@
       </div>
     </div>
     {% if not is_last_page %}
-    <a class="pagination__next" href="/api/projects/html/{{ next_page }}" hidden>next</a>
+    <a class="pagination__next" href="/api/projects/html/{{ next_page }}{{ api_query }}" hidden>next</a>
     {% endif %}
   </div>
 

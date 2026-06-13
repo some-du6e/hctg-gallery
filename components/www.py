@@ -3,6 +3,7 @@ from fastapi import APIRouter, Request
 import components.jsonManager as jm
 from pathlib import Path
 import random
+from urllib.parse import urlencode
 
 router = APIRouter()
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +30,66 @@ sidebar_links = [
 def balance():
     return random.randint(0, 100)
 
+tag_filters = [
+    {"id": 1, "name": "TransitTime"},
+    {"id": 2, "name": "Hardware"},
+    {"id": 3, "name": "Website"},
+    {"id": 4, "name": "App"},
+    {"id": 5, "name": "Game"},
+    {"id": 6, "name": "Other"},
+    {"id": 7, "name": "Heist"},
+    {"id": -67, "name": "Golden Ticket"},
+]
+
+PROJECTS_PER_PAGE = 18
+
+def selected_tags_from_request(request: Request) -> tuple[int, ...]:
+    selected_tags = []
+    for tag in request.query_params.getlist("tags"):
+        try:
+            selected_tags.append(int(tag))
+        except ValueError:
+            continue
+    return tuple(tag for tag in selected_tags if any(tag == tag_filter["id"] for tag_filter in tag_filters))
+
+def gallery_href_for_tags(tags: tuple[int, ...]) -> str:
+    if not tags:
+        return "/gallery"
+    return "/gallery?" + urlencode([("tags", tag) for tag in tags])
+
+def gallery_filter_context(selected_tags: tuple[int, ...]):
+    query_items = [("tags", tag) for tag in selected_tags]
+    api_query = ("?" + urlencode(query_items)) if query_items else ""
+    filters = []
+    for tag_filter in tag_filters:
+        tag_id = tag_filter["id"]
+        next_tags = tuple(tag for tag in selected_tags if tag != tag_id)
+        if tag_id not in selected_tags:
+            next_tags = selected_tags + (tag_id,)
+        filters.append({
+            **tag_filter,
+            "selected": tag_id in selected_tags,
+            "href": gallery_href_for_tags(next_tags),
+        })
+    return {
+        "tag_filters": filters,
+        "selected_tags": selected_tags,
+        "api_query": api_query,
+    }
+
+def get_gallery_projects(page_num: int, selected_tags: tuple[int, ...]):
+    if not selected_tags:
+        try:
+            projects = jm.getGalleryPage(str(page_num))
+        except KeyError:
+            return [], True
+        return projects, jm.isLastPage(str(page_num))
+
+    filtered_projects = jm.getFilteredProjects(selected_tags)
+    start = page_num * PROJECTS_PER_PAGE
+    end = start + PROJECTS_PER_PAGE
+    return filtered_projects[start:end], end >= len(filtered_projects)
+
 @router.get("/", tags=["zFrontend"], deprecated=True)
 async def home(request: Request):
     return templates.TemplateResponse(request, "home.html", {"sidebarlinks": sidebar_links, "page": "Home", "featured_projects": jm.getFeaturedProjects(), "balance": balance()})
@@ -46,15 +107,18 @@ async def notFound(request: Request):
 
 @router.get("/gallery", deprecated=True, tags=["zFrontend"])
 async def gallery(request: Request):
-    page_num = "0"
-    projectos = jm.getGalleryPage(page_num)
-    return templates.TemplateResponse(request, "gallery.html", {"sidebarlinks": sidebar_links, "page": "Gallery", "balance": balance(), "projects": projectos, "next_page": int(page_num)+1, "is_last_page": jm.isLastPage(page_num)})
+    page_num = 0
+    selected_tags = selected_tags_from_request(request)
+    projectos, is_last_page = get_gallery_projects(page_num, selected_tags)
+    return templates.TemplateResponse(request, "gallery.html", {"sidebarlinks": sidebar_links, "page": "Gallery", "balance": balance(), "projects": projectos, "next_page": page_num+1, "is_last_page": is_last_page, **gallery_filter_context(selected_tags)})
 
 
 @router.get("/api/projects/html/{page_num}", deprecated=True, tags=["zFrontend"])
 def project_page_html(page_num: str, request: Request):
-    projectos = jm.getGalleryPage(page_num)
-    return templates.TemplateResponse(request, "page.html", {"projects": projectos, "next_page": int(page_num)+1, "is_last_page": jm.isLastPage(page_num)})
+    page_num_int = int(page_num)
+    selected_tags = selected_tags_from_request(request)
+    projectos, is_last_page = get_gallery_projects(page_num_int, selected_tags)
+    return templates.TemplateResponse(request, "page.html", {"projects": projectos, "next_page": page_num_int+1, "is_last_page": is_last_page, **gallery_filter_context(selected_tags)})
 
 
 @router.get("/project/{project_id}", deprecated=True, tags=["zFrontend"])
