@@ -203,6 +203,7 @@ def projectabstractionthingrllylong(say, projectId, user_id, thread_ts=None, eph
     readme = "https://large-type.com/#not found :("
     repourl = project["repo_link"]
     demourl = project["demo_link"]
+    galleryurl = f"{os.environ.get('BASE_URL')}/project/{projectId}"
     if "github.com/" in str(repourl):
         readme = repourl + "blob/main/README.md" # todo: regex? normalising?
 
@@ -250,7 +251,15 @@ def projectabstractionthingrllylong(say, projectId, user_id, thread_ts=None, eph
 						"text": ":book: Readme"
 					},
 					"url": readme
-				}
+				},
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": ":hctg-sleepy-orpheus: View on Gallery"
+                    },
+                    "url": galleryurl
+                }
 			]
 		}
 	]
