@@ -16,12 +16,13 @@ def getGalleryPage(pageNum: str):
     paginatedProjects = getPaginatedProjects()
     return paginatedProjects[pageNum]
 
-def getProjectById(projectId: int, indent: bool = False):
+def getProjectById(projectId: int, indent: bool = False) -> dict:
     projects = getProjects()
     for project in projects:
         if project["id"] == projectId:
             if indent:
-                return json.dumps(project, indent=2)
+                shitter = json.dumps(project, indent=2)
+                return shitter 
             return project
     return None
 

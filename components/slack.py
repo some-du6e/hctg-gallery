@@ -198,8 +198,7 @@ def projectabstractionthingrllylong(say, projectId, user_id, thread_ts=None, eph
 	    		"text": f"\n {project['ai_declaration']} "
 	    }
 
-    BASE_URL = "https://game.hackclub.com"
-    image_url = f"{BASE_URL}/{project['screenshot']}"
+    image_url = project["screenshot"] 
     
     readme = "https://large-type.com/#not found :("
     repourl = project["repo_link"]
