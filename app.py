@@ -4,7 +4,7 @@ import threading
 import uvicorn
 
 def startApi():
-    uvicorn.run(api.app, host="127.0.0.1", port=8000, reload=False)
+    uvicorn.run(api.app, host="0.0.0.0", port=8000, reload=False)
 
 if __name__ == "__main__":
     apiThread = threading.Thread(target=startApi)
