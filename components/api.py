@@ -63,6 +63,15 @@ def get_filtered_project_page(
 
 
 
+@app.get("/api/project_count", tags=["Projects", "Filtering", "Pagination"])
+def get_project_count(
+    change_me_for_a_shield: str = Query(default="cool"),
+):
+    try:
+        return jm.getProjectCount(change_me_for_a_shield)
+    except Exception as e:
+        return {"error": str(e)}
+
 
 @app.middleware("http")
 async def find_404_error_codes(request, call_next):

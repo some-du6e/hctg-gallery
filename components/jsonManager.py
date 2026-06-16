@@ -16,7 +16,7 @@ def getGalleryPage(pageNum: str):
     paginatedProjects = getPaginatedProjects()
     return paginatedProjects[pageNum]
 
-def getProjectById(projectId: int, indent: bool = False) -> dict:
+def getProjectById(projectId: int, indent: bool = False) -> dict | str | None:
     projects = getProjects()
     for project in projects:
         if project["id"] == projectId:
@@ -52,3 +52,13 @@ def getFilteredProjectPage(tags: tuple, pageNum: str):
 def isLastPage(pageNum: str):
     paginatedProjects = getPaginatedProjects()
     return pageNum == str(len(paginatedProjects)-1)  
+
+
+def getProjectCount(text: str):
+    projects = getProjects()
+
+    if text == "cool":
+        return len(projects)
+    else: # this is for https://shields.io/badges/endpoint-badge
+        shield = { "schemaVersion": 1, "label": text, "message": len(projects), "color": "blue" }
+        return shield

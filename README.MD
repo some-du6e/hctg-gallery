@@ -3,7 +3,7 @@
 <p>Improves the <a href="https://game.hackclub.com">HCTG</a> gallery by adding stuf</p>
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/some-du6e/hctg-gallery)
-![Website](https://img.shields.io/website?url=hctggallery.karimeltaib.com) TODO figure out why this mf is lying
+![Website](https://img.shields.io/website?url=hctggallery.karimeltaib.com)
 ![Projects saved](https://img.shields.io/github/license/TODO api endpoint for that)
 </div>
 <!-- sorry maxstellar for skidding this ^-->
