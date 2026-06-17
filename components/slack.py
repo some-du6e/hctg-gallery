@@ -7,7 +7,6 @@ from time import sleep
 import threading
 import random
 import os
-from urllib.parse import urlparse
 
 
 def taskCard(thing):
@@ -52,25 +51,6 @@ def formatTime(seconds):
 
 
 app = App(token=os.environ.get("SLACK_BOT_TOKEN"))
-
-
-def valid_slack_url(url):
-    """Slack button URLs must be absolute http(s) URLs."""
-    parsed = urlparse(str(url or ""))
-    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
-
-
-def slack_button(text, url):
-    if not valid_slack_url(url):
-        return None
-    return {
-        "type": "button",
-        "text": {
-            "type": "plain_text",
-            "text": text,
-        },
-        "url": str(url),
-    }
 
 
 def get_team_id(body=None, message=None, command=None):
@@ -220,20 +200,12 @@ def projectabstractionthingrllylong(say, projectId, user_id, thread_ts=None, eph
 
     image_url = project["screenshot"] 
     
-    readme = "https://large-type.com/#not-found"
+    readme = "https://large-type.com/#not found :("
     repourl = project["repo_link"]
     demourl = project["demo_link"]
-    base_url = os.environ.get("BASE_URL") or "http://hackclub.app:8000"
-    galleryurl = f"{base_url.rstrip('/')}/project/{projectId}"
+    galleryurl = f"{os.environ.get('BASE_URL')}/project/{projectId}"
     if "github.com/" in str(repourl):
-        readme = repourl.rstrip("/") + "/blob/main/README.md" # todo: regex? normalising?
-    
-    buttons = [
-        slack_button("🔗 Demo", demourl),
-        slack_button(":github: Repository", repourl),
-        slack_button(":book: Readme", readme),
-        slack_button(":hctg-sleepy-orpheus: View on Gallery", galleryurl),
-    ]
+        readme = repourl + "blob/main/README.md" # todo: regex? normalising?
 
 	# FUCK VSCODE
     blocks = [
@@ -255,7 +227,40 @@ def projectabstractionthingrllylong(say, projectId, user_id, thread_ts=None, eph
 		{
 			"type": "actions",
 			"block_id": "buttons",
-			"elements": [button for button in buttons if button is not None]
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "🔗 Demo"
+					},
+					"url": demourl
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": ":github: Repository"
+					},
+					"url": repourl
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": ":book: Readme"
+					},
+					"url": readme
+				},
+                {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": ":hctg-sleepy-orpheus: View on Gallery"
+                    },
+                    "url": galleryurl
+                }
+			]
 		}
 	]
 
