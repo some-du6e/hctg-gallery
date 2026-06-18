@@ -16,7 +16,7 @@ def getGalleryPage(pageNum: str):
     paginatedProjects = getPaginatedProjects()
     return paginatedProjects[pageNum]
 
-def getProjectById(projectId: int, indent: bool = False) -> dict | str | None:
+def getProjectById(projectId: int, indent: bool = False) -> any: # type: ignore # pylance-ignore
     projects = getProjects()
     for project in projects:
         if project["id"] == projectId:
