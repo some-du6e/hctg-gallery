@@ -1,7 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
 from pathlib import Path
-from openai import project
 import requests
 import boto3
 import os

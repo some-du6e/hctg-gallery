@@ -5,6 +5,8 @@ from time import sleep
 import json
 import components.images as im
 
+SEED = 1111 
+
 # Keep Playwright instance alive at module level
 _playwright = None
 _browser = None
@@ -120,7 +122,7 @@ def getPageAmount(page: Page, say=fakeSay) -> tuple[Page, int]:
 
 
 def getDumpFromGalleryPage(page: Page, pageNum: int, say=fakeSay):
-    PAGE_URL = f"https://game.hackclub.com/explore?page={pageNum}"
+    PAGE_URL = f"https://game.hackclub.com/explore?page={pageNum}%seed={SEED}"
     say(f"getDumpFromGalleryPage: going to gallery page with pageNum {pageNum}...")
     page.goto(PAGE_URL)
 
