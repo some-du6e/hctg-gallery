@@ -65,7 +65,7 @@ def get_filtered_project_page(
 
 @app.get("/api/project_count", tags=["Projects", "Filtering", "Pagination"])
 def get_project_count(
-    change_me_for_a_shield: str = Query(default="cool"),
+    change_me_for_a_shield: str = Query(default="Projects"),
 ):
     try:
         return jm.getProjectCount(change_me_for_a_shield)

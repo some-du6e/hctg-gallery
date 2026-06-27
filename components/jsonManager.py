@@ -56,9 +56,6 @@ def isLastPage(pageNum: str):
 
 def getProjectCount(text: str):
     projects = getProjects()
-
-    if text == "cool":
-        return len(projects)
-    else: # this is for https://shields.io/badges/endpoint-badge
-        shield = { "schemaVersion": 1, "label": text, "message": len(projects), "color": "blue" }
-        return shield
+    label = text if text != "cool" else "Projects"
+    shield = { "schemaVersion": 1, "label": label, "message": str(len(projects)), "color": "blue" }
+    return shield
